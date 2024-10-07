@@ -1,9 +1,10 @@
 import { paginationOptsValidator } from "convex/server";
 import { v } from "convex/values";
-import { api } from "./_generated/api";
 import { internalMutation, query } from "./_generated/server";
 import { getRecordsPageHandler } from "./handlers/records";
 import { requireAuthentication } from "./lib/helpers";
+
+const ITEM_LIMIT = 3000;
 
 export const getRecordsPage = query({
   args: { paginationOpts: paginationOptsValidator },
@@ -16,10 +17,11 @@ export const getRecordsPage = query({
 export const addRecord = internalMutation({
   args: { latitude: v.number(), longitude: v.number(), power: v.number() },
   handler: async (ctx, args) => {
-    const user = await ctx.runQuery(api.users.getCurrentUser, {});
-    if (!user?.isAdmin) {
-      throw new Error("Only admins can add records");
+    await ctx.db.insert("records", args);
+    const allItems = await ctx.db.query("records").collect();
+    if (allItems.length >= ITEM_LIMIT) {
+      const oldestItem = allItems[0];
+      await ctx.db.delete(oldestItem._id);
     }
-    return await ctx.db.insert("records", args);
   },
 });
