@@ -36,7 +36,7 @@ export function RecordsTable() {
 
   const PowerBar = ({ power }: { power: number }) => {
     const percentage = Math.min(Math.max(power, 0), 100);
-    const color = `hsl(${percentage * 1.2}, 100%, 50%)`;
+    const color = `hsla(${percentage * 1.2}, 100%, 50%, 0.9)`;
 
     return (
       <>
@@ -57,48 +57,57 @@ export function RecordsTable() {
   return (
     <div className="max-w-screen-md mx-auto">
       {isLoading && <LoadingIndicator />}
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-fit">Coordinates</TableHead>
-            <TableHead>Date</TableHead>
-            <TableHead>Power</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {results?.map((r) => (
-            <TableRow key={r._id}>
-              <TableCell>
-                <Button variant="link" asChild>
-                  <Link
-                    target="_blank"
-                    href={`https://www.google.com/maps?q=${r.latitude},${r.longitude}`}
-                  >
-                    {r.latitude.toFixed(2)} {r.longitude.toFixed(2)}
-                  </Link>
-                </Button>
-              </TableCell>
-              <TableCell>{formatToDateTime(r._creationTime)}</TableCell>
-              <TableCell>
-                <div className="flex items-center space-x-2">
-                  <PowerBar power={r.power} />
-                </div>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-      <div className="flex justify-center">
-        {status === "CanLoadMore" && (
-          <Button
-            variant="secondary"
-            className="mt-3"
-            onClick={() => loadMore(PAGE_SIZE)}
-          >
-            Load More
-          </Button>
-        )}
-      </div>
+      {!isLoading && (
+        <>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-fit">Coordinates</TableHead>
+                <TableHead>Date</TableHead>
+                <TableHead>Power</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {results?.map((r) => (
+                <TableRow key={r._id}>
+                  <TableCell className="p-0">
+                    <Button
+                      variant="ghost"
+                      asChild
+                      className="p-0 hover:text-primary px-4 justify-start text-primary hover:bg-transparent hover:underline"
+                    >
+                      <Link
+                        className="p-0 w-full"
+                        target="_blank"
+                        href={`https://www.google.com/maps?q=${r.latitude},${r.longitude}`}
+                      >
+                        {r.latitude.toFixed(2)} {r.longitude.toFixed(2)}
+                      </Link>
+                    </Button>
+                  </TableCell>
+                  <TableCell>{formatToDateTime(r._creationTime)}</TableCell>
+                  <TableCell>
+                    <div className="flex items-center space-x-2">
+                      <PowerBar power={r.power} />
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+          <div className="flex justify-center">
+            {status === "CanLoadMore" && (
+              <Button
+                variant="secondary"
+                className="mt-3"
+                onClick={() => loadMore(PAGE_SIZE)}
+              >
+                Load More
+              </Button>
+            )}
+          </div>
+        </>
+      )}
     </div>
   );
 }
