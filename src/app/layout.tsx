@@ -3,11 +3,11 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Footer } from "./footer";
 import "./globals.css";
-import { Header } from "./header";
 import { Providers } from "./providers";
 import ScrollToTop from "@/components/scroll-to-top";
 import { Constants } from "@/constants";
 import NextTopLoader from "nextjs-toploader";
+import { Header } from "./header";
 
 export const metadata: Metadata = {
   title: Constants.APP_NAME,
