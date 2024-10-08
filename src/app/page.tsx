@@ -5,7 +5,9 @@ import { api } from "../../convex/_generated/api";
 import { LogsTable } from "./logs-table";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Stats } from "./stats";
-import LocationMap from "./map";
+import dynamic from "next/dynamic";
+
+const LocationMap = dynamic(() => import("./map"), { ssr: false });
 
 export default function Home() {
   const roles = useQuery(api.users.getRoles);
