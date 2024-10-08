@@ -41,7 +41,7 @@ export default function LocationMap() {
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          attribution=''
         />
         <Marker position={point} icon={customIcon} />
       </MapContainer>
