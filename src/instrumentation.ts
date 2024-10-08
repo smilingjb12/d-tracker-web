@@ -11,4 +11,5 @@ function ensureEnvVariablesAreSet(): void {
       throw new Error(`Missing environment variable: ${key}`);
     }
   }
+  console.log("Environment variables are set correctly");
 }

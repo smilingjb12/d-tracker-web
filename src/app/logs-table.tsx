@@ -8,12 +8,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { usePaginatedQuery } from "convex/react";
+import { usePaginatedQuery, useQuery } from "convex/react";
 import Link from "next/link";
 import { api } from "../../convex/_generated/api";
 
-export function RecordsTable() {
+type Coords = { lat: number; long: number };
+
+export function LogsTable() {
   const PAGE_SIZE = 30;
+  const knownLocations = useQuery(api.knownLocations.getKnownLocations);
   const { results, isLoading, loadMore, status } = usePaginatedQuery(
     api.records.getRecordsPage,
     {},
@@ -32,6 +35,33 @@ export function RecordsTable() {
       second: "2-digit",
       hour12: false,
     });
+  }
+
+  function coordinatesAreSimilar(point1: Coords, point2: Coords) {
+    const roundToFive = (num: number) => Math.round(num * 1000) / 1000;
+
+    return (
+      roundToFive(point1.lat) === roundToFive(point2.lat) &&
+      roundToFive(point2.long) === roundToFive(point2.long)
+    );
+  }
+
+  function getCoordiantesDisplay(latitude: number, longitude: number): string {
+    const defaultDisplay = `${latitude.toFixed(2)} ${longitude.toFixed(2)}`;
+    if (!knownLocations) {
+      return defaultDisplay;
+    }
+    const knownLocation = knownLocations?.find((loc) =>
+      coordinatesAreSimilar(
+        { lat: loc.latitude, long: loc.longitude },
+        { lat: latitude, long: longitude }
+      )
+    );
+    if (knownLocation) {
+      return knownLocation.name;
+    }
+
+    return defaultDisplay;
   }
 
   const PowerBar = ({ power }: { power: number }) => {
@@ -81,7 +111,7 @@ export function RecordsTable() {
                         target="_blank"
                         href={`https://www.google.com/maps?q=${r.latitude},${r.longitude}`}
                       >
-                        {r.latitude.toFixed(2)} {r.longitude.toFixed(2)}
+                        {getCoordiantesDisplay(r.latitude, r.longitude)}
                       </Link>
                     </Button>
                   </TableCell>

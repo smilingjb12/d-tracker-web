@@ -8,7 +8,7 @@ export const createSignedInUserHandler = async (
   return await ctx.db.insert("users", {
     userId: args.userId,
     email: args.email,
-    isAdmin: false,
+    roles: [],
   });
 };
 

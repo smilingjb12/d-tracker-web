@@ -12,6 +12,11 @@ export default defineSchema({
   users: defineTable({
     userId: v.string(),
     email: v.string(),
-    isAdmin: v.boolean(),
+    roles: v.array(v.union(v.literal("reader"), v.literal("owner"))),
   }).index("by_userId", ["userId"]),
+  knownLocations: defineTable({
+    latitude: v.number(),
+    longitude: v.number(),
+    name: v.string(),
+  }),
 });

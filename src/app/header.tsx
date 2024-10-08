@@ -4,7 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Constants } from "@/constants";
 import { SignInButton, useClerk, useUser } from "@clerk/nextjs";
 import { Authenticated, Unauthenticated } from "convex/react";
-import { LogOutIcon, Menu, TabletSmartphone, X } from "lucide-react";
+import {
+  LocateIcon,
+  LogOutIcon,
+  Menu,
+  TabletSmartphone,
+  X,
+} from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { AvatarDropdown } from "./avatar-dropdown";
@@ -24,7 +30,7 @@ export function Header() {
             href="/"
             className="flex items-center gap-2 group hover:text-primary transition-colors duration-100"
           >
-            <TabletSmartphone className="size-7" />
+            <LocateIcon className="size-7" />
             <span className="text-base font-semibold sm:text-lg md:text-xl lg:text-xl group-hover:text-primary">
               {Constants.APP_NAME}
             </span>

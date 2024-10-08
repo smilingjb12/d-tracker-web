@@ -14,17 +14,15 @@ export const getCurrentUser = query({
   },
 });
 
-export const getIsAdmin = query({
+export const getRoles = query({
   args: {},
-  handler: async (ctx): Promise<boolean> => {
+  handler: async (ctx): Promise<("reader" | "owner")[]> => {
     const identity = await ctx.auth.getUserIdentity();
-    console.log(identity);
     if (!identity) {
-      return false;
+      return [];
     }
     const user = await getCurrentUserHandler(ctx);
-    console.log(user);
-    return user?.isAdmin ?? false;
+    return user?.roles ?? [];
   },
 });
 
