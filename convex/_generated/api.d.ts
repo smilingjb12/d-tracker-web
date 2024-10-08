@@ -17,6 +17,8 @@ import type {
 } from "convex/server";
 import type * as clerk from "../clerk.js";
 import type * as crons from "../crons.js";
+import type * as emails_stoppedSendingData from "../emails/stoppedSendingData.js";
+import type * as emails from "../emails.js";
 import type * as handlers_clerk from "../handlers/clerk.js";
 import type * as handlers_http from "../handlers/http.js";
 import type * as handlers_knownLocations from "../handlers/knownLocations.js";
@@ -24,6 +26,7 @@ import type * as handlers_records from "../handlers/records.js";
 import type * as handlers_users from "../handlers/users.js";
 import type * as http from "../http.js";
 import type * as knownLocations from "../knownLocations.js";
+import type * as lib_constants from "../lib/constants.js";
 import type * as lib_convexEnv from "../lib/convexEnv.js";
 import type * as lib_env from "../lib/env.js";
 import type * as lib_helpers from "../lib/helpers.js";
@@ -43,6 +46,8 @@ import type * as users from "../users.js";
 declare const fullApi: ApiFromModules<{
   clerk: typeof clerk;
   crons: typeof crons;
+  "emails/stoppedSendingData": typeof emails_stoppedSendingData;
+  emails: typeof emails;
   "handlers/clerk": typeof handlers_clerk;
   "handlers/http": typeof handlers_http;
   "handlers/knownLocations": typeof handlers_knownLocations;
@@ -50,6 +55,7 @@ declare const fullApi: ApiFromModules<{
   "handlers/users": typeof handlers_users;
   http: typeof http;
   knownLocations: typeof knownLocations;
+  "lib/constants": typeof lib_constants;
   "lib/convexEnv": typeof lib_convexEnv;
   "lib/env": typeof lib_env;
   "lib/helpers": typeof lib_helpers;

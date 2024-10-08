@@ -14,6 +14,14 @@ export const getCurrentUser = query({
   },
 });
 
+export const getOwnerUsers = internalQuery({
+  args: {},
+  handler: async (ctx) => {
+    const users = await ctx.db.query("users").collect();
+    return users.filter((u) => u.roles.includes("owner"));
+  },
+});
+
 export const getRoles = query({
   args: {},
   handler: async (ctx): Promise<("reader" | "owner")[]> => {

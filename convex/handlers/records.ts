@@ -1,8 +1,7 @@
 import { internal } from "../_generated/api";
 import { ActionCtx, MutationCtx, QueryCtx } from "../_generated/server";
+import { ConvexConstants } from "../lib/constants";
 import { requireAuthentication, requireReaderRole } from "../lib/helpers";
-
-const ITEM_LIMIT = 3000;
 
 export const recordsPostHandler = async (ctx: ActionCtx, req: Request) => {
   const record = await req.json();
@@ -16,11 +15,11 @@ export const recordsPostHandler = async (ctx: ActionCtx, req: Request) => {
 export const getStatsHandler = async (ctx: QueryCtx) => {
   await requireAuthentication(ctx);
   await requireReaderRole(ctx);
-  const lastFiveRecords = await ctx.db.query("records").order("desc").take(5);
+  const last3Records = await ctx.db.query("records").order("desc").take(3);
   const updateIntervalInMinutes = getTimeDifferenceInMinutes(
-    lastFiveRecords.map((record) => record._creationTime)
+    last3Records.map((record) => record._creationTime)
   );
-  const lastUpdatedAt = lastFiveRecords[0]._creationTime;
+  const lastUpdatedAt = last3Records[0]._creationTime;
   return {
     updateIntervalInMinutes,
     lastUpdatedAt,
@@ -37,7 +36,7 @@ export const addRecordHandler = async (
 ) => {
   await ctx.db.insert("records", args);
   const allItems = await ctx.db.query("records").collect();
-  if (allItems.length >= ITEM_LIMIT) {
+  if (allItems.length >= ConvexConstants.RECORD_LIMIT) {
     const oldestItem = allItems[0];
     await ctx.db.delete(oldestItem._id);
   }

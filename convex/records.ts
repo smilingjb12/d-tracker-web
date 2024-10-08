@@ -1,6 +1,6 @@
 import { paginationOptsValidator } from "convex/server";
 import { v } from "convex/values";
-import { internalMutation, query } from "./_generated/server";
+import { internalMutation, internalQuery, query } from "./_generated/server";
 import {
   addRecordHandler,
   getRecordsPageHandler,
@@ -11,6 +11,13 @@ export const getRecordsPage = query({
   args: { paginationOpts: paginationOptsValidator },
   handler: async (ctx, args) => {
     return await getRecordsPageHandler(ctx, args);
+  },
+});
+
+export const getMostRecentRecord = internalQuery({
+  args: {},
+  handler: async (ctx) => {
+    return await ctx.db.query("records").order("desc").first();
   },
 });
 
