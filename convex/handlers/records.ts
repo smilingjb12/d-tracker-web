@@ -1,11 +1,19 @@
 import { internal } from "../_generated/api";
 import { ActionCtx, MutationCtx, QueryCtx } from "../_generated/server";
 import { ConvexConstants } from "../lib/constants";
+import { convexEnv } from "../lib/convexEnv";
 import { requireAuthentication, requireReaderRole } from "../lib/helpers";
 
 export const recordsPostHandler = async (ctx: ActionCtx, req: Request) => {
   const record = await req.json();
   console.log("Received record:", record);
+  const key = req.headers.get("authorization-key");
+  if (key !== convexEnv.API_AUTHORIZATION_KEY) {
+    console.warn("Trying to post without a key");
+    return new Response(null, {
+      status: 401,
+    });
+  }
   await ctx.runMutation(internal.records.addRecord, record);
   return new Response(null, {
     status: 200,

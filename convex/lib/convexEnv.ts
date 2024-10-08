@@ -5,6 +5,7 @@ const ENV_VARS = [
   "CLERK_JWT_ISSUER_DOMAIN",
   "SITE_URL",
   "RESEND_API_KEY",
+  "API_AUTHORIZATION_KEY",
 ] as const;
 
 export const convexEnv = createEnvRecord(ENV_VARS);
