@@ -20,7 +20,7 @@ export default function LocationMap() {
       "data:image/svg+xml;charset=UTF-8," +
       encodeURIComponent(`
       <svg xmlns="http://www.w3.org/2000/svg" width="25" height="41" viewBox="0 0 25 41">
-        <path fill="#32c238" stroke="#000000" stroke-width="1" d="M12.5 0C5.596 0 0 5.596 0 12.5C0 21.875 12.5 41 12.5 41S25 21.875 25 12.5C25 5.596 19.404 0 12.5 0zm0 18.75c-3.452 0-6.25-2.798-6.25-6.25s2.798-6.25 6.25-6.25 6.25 2.798 6.25 6.25-2.798 6.25-6.25 6.25z"/>
+        <path fill="#32c238" stroke="#333333" stroke-width="1" d="M12.5 0C5.596 0 0 5.596 0 12.5C0 21.875 12.5 41 12.5 41S25 21.875 25 12.5C25 5.596 19.404 0 12.5 0zm0 18.75c-3.452 0-6.25-2.798-6.25-6.25s2.798-6.25 6.25-6.25 6.25 2.798 6.25 6.25-2.798 6.25-6.25 6.25z"/>
       </svg>
     `),
     iconSize: [25, 41],
@@ -40,8 +40,8 @@ export default function LocationMap() {
         style={{ height: "400px", width: "100%" }}
       >
         <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution=''
+          url="https://tiles.stadiamaps.com/tiles/alidade_satellite/{z}/{x}/{y}{r}.png"
+          attribution=""
         />
         <Marker position={point} icon={customIcon} />
       </MapContainer>
