@@ -5,6 +5,7 @@ import { api } from "../../convex/_generated/api";
 import { LogsTable } from "./logs-table";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Stats } from "./stats";
+import LocationMap from "./map";
 
 export default function Home() {
   const roles = useQuery(api.users.getRoles);
@@ -22,6 +23,12 @@ export default function Home() {
               <CardHeader className="font-bold text-2xl">Stats</CardHeader>
               <CardContent>
                 <Stats />
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader className="font-bold text-2xl">Location</CardHeader>
+              <CardContent>
+                <LocationMap />
               </CardContent>
             </Card>
             <Card>

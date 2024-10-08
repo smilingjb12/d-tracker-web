@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Constants } from "@/constants";
 import { SignInButton, useClerk, useUser } from "@clerk/nextjs";
 import { Authenticated, Unauthenticated } from "convex/react";
-import { LocateIcon, LogOutIcon, Menu, X } from "lucide-react";
+import { DraftingCompassIcon, LogOutIcon, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { AvatarDropdown } from "./avatar-dropdown";
@@ -17,14 +17,14 @@ export function Header() {
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 shadow-md bg-secondary">
+    <header className="fixed top-0 left-0 right-0 z-[2000] shadow-md bg-secondary">
       <nav className="container flex h-16 w-full items-center justify-between px-4 md:px-6">
         <div className="flex items-center gap-12">
           <Link
             href="/"
-            className="flex items-center gap-2 group hover:text-primary transition-colors duration-100"
+            className="flex items-center gap-2 group hover:text-primary transition-colors duration-100 text-primary"
           >
-            <LocateIcon className="size-7" />
+            <DraftingCompassIcon className="size-7" />
             <span className="text-base font-semibold sm:text-lg md:text-xl lg:text-xl group-hover:text-primary">
               {Constants.APP_NAME}
             </span>

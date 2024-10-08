@@ -6,11 +6,22 @@ import {
   getByUserIdHandler,
   getCurrentUserHandler,
 } from "./handlers/users";
+import { requireAuthentication, requireReaderRole } from "./lib/helpers";
 
 export const getCurrentUser = query({
   args: {},
   handler: async (ctx): Promise<Doc<"users"> | null> => {
     return await getCurrentUserHandler(ctx);
+  },
+});
+
+export const getLastKnownLocation = query({
+  args: {},
+  handler: async (ctx) => {
+    await requireAuthentication(ctx);
+    await requireReaderRole(ctx);
+    const latestRecord = await ctx.db.query("records").order("desc").first();
+    return { lat: latestRecord?.latitude, lng: latestRecord?.longitude };
   },
 });
 

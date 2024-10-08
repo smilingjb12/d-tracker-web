@@ -5,7 +5,7 @@ const crons = cronJobs();
 
 crons.interval(
   "Check if device stopped sending data",
-  { hours: 3 },
+  { hours: 1 },
   internal.emails.notifyIfStoppedSendingData
 );
 
