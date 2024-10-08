@@ -4,13 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Constants } from "@/constants";
 import { SignInButton, useClerk, useUser } from "@clerk/nextjs";
 import { Authenticated, Unauthenticated } from "convex/react";
-import {
-  LocateIcon,
-  LogOutIcon,
-  Menu,
-  TabletSmartphone,
-  X,
-} from "lucide-react";
+import { LocateIcon, LogOutIcon, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { AvatarDropdown } from "./avatar-dropdown";
