@@ -40,7 +40,7 @@ export default function LocationMap() {
         style={{ height: "400px", width: "100%" }}
       >
         <TileLayer
-          url="https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png"
+          url="https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png"
           attribution=""
         />
         <Marker position={point} icon={customIcon} />
