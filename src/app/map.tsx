@@ -36,7 +36,7 @@ export default function LocationMap() {
     <div>
       <MapContainer
         center={point}
-        zoom={18}
+        zoom={13}
         style={{ height: "400px", width: "100%" }}
       >
         <TileLayer
