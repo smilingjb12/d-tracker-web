@@ -36,12 +36,12 @@ export default function LocationMap() {
     <div>
       <MapContainer
         center={point}
-        zoom={18}
+        zoom={13}
         style={{ height: "400px", width: "100%" }}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          attribution=''
         />
         <Marker position={point} icon={customIcon} />
       </MapContainer>
