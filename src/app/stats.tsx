@@ -50,7 +50,7 @@ export function Stats() {
               target="_blank"
               href={`https://www.google.com/maps?q=${lastKnownLocation.lat},${lastKnownLocation.lng}`}
             >
-              {`${lastKnownLocation!.lat!.toFixed(2)} ${lastKnownLocation!.lng!.toFixed(2)}`}
+              {`${lastKnownLocation!.lat!.toFixed(4)} ${lastKnownLocation!.lng!.toFixed(4)}`}
             </Link>
           }
         />
