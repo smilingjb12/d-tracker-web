@@ -23,14 +23,19 @@ export const recordsPostHandler = async (ctx: ActionCtx, req: Request) => {
 export const getStatsHandler = async (ctx: QueryCtx) => {
   await requireAuthentication(ctx);
   await requireReaderRole(ctx);
-  const last3Records = await ctx.db.query("records").order("desc").take(3);
+  const last5Records = await ctx.db.query("records").order("desc").take(5);
   const updateIntervalInMinutes = getTimeDifferenceInMinutes(
-    last3Records.map((record) => record._creationTime)
+    last5Records.map((record) => record._creationTime)
   );
-  const lastUpdatedAt = last3Records[0]._creationTime;
+  const landlord = await ctx.db
+    .query("contacts")
+    .filter((q) => q.eq(q.field("type"), "landlord"))
+    .first();
+  const lastUpdatedAt = last5Records[0]._creationTime;
   return {
     updateIntervalInMinutes,
     lastUpdatedAt,
+    landlord,
   };
 };
 

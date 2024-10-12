@@ -22,7 +22,7 @@ export default function Home() {
         {isAuthenticated && roles?.includes("reader") && (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-6">
             <Card>
-              <CardHeader className="font-bold text-2xl">Stats</CardHeader>
+              <CardHeader className="font-bold text-2xl">Summary</CardHeader>
               <CardContent>
                 <Stats />
               </CardContent>

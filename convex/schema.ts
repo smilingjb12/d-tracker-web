@@ -19,4 +19,9 @@ export default defineSchema({
     longitude: v.number(),
     name: v.string(),
   }),
+  contacts: defineTable({
+    type: v.union(v.literal("landlord")),
+    name: v.string(),
+    phone: v.string(),
+  }),
 });

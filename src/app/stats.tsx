@@ -2,11 +2,10 @@ import LoadingIndicator from "@/components/loading-indicator";
 import { useQuery } from "convex/react";
 import { formatDistance } from "date-fns";
 import { api } from "../../convex/_generated/api";
-import Link from "next/link";
+import { PhoneIcon, UserIcon } from "lucide-react";
 
 export function Stats() {
   const stats = useQuery(api.records.getStats);
-  const lastKnownLocation = useQuery(api.users.getLastKnownLocation);
   if (!stats) {
     return <LoadingIndicator />;
   }
@@ -41,22 +40,24 @@ export function Stats() {
         title="Update Interval"
         value={Math.floor(stats.updateIntervalInMinutes) + " minutes"}
       />
-      {lastKnownLocation ? (
-        <StatItem
-          title="Last Known Location"
-          value={
-            <Link
-              className="p-0 w-full hover:underline"
-              target="_blank"
-              href={`https://www.google.com/maps?q=${lastKnownLocation.lat},${lastKnownLocation.lng}`}
-            >
-              {`${lastKnownLocation!.lat!.toFixed(4)} ${lastKnownLocation!.lng!.toFixed(4)}`}
-            </Link>
-          }
-        />
-      ) : (
-        <LoadingIndicator />
-      )}
+      <StatItem
+        title="Contacts"
+        value={
+          <div className="flex flex-col items-center justify-center text-lg">
+            <div className="font-bold">Landlord</div>
+            <div className="flex flex-col justify-center items-center">
+              <div className="flex flex-row items-center">
+                <UserIcon size="20" className="mr-1" />
+                {stats.landlord?.name}
+              </div>{" "}
+              <div className="flex flex-row items-center">
+                <PhoneIcon size="18" className="mr-1" />
+                {stats.landlord?.phone} (WhatsApp)
+              </div>
+            </div>
+          </div>
+        }
+      />
     </div>
   );
 }
