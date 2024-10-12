@@ -45,6 +45,7 @@ export const addRecordHandler = async (
     latitude: number;
     longitude: number;
     power: number;
+    steps?: number;
   }
 ) => {
   await ctx.db.insert("records", args);

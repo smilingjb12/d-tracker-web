@@ -22,7 +22,12 @@ export const getMostRecentRecord = internalQuery({
 });
 
 export const addRecord = internalMutation({
-  args: { latitude: v.number(), longitude: v.number(), power: v.number() },
+  args: {
+    latitude: v.number(),
+    longitude: v.number(),
+    power: v.number(),
+    steps: v.optional(v.number()),
+  },
   handler: async (ctx, args) => {
     return await addRecordHandler(ctx, args);
   },
