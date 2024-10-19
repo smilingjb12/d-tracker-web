@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Stats } from "./stats";
 import dynamic from "next/dynamic";
 
-const LocationMap = dynamic(() => import("./map"), { ssr: false });
+const LocationMap = dynamic(() => import("./location-map"), { ssr: false });
 
 export default function Home() {
   const roles = useQuery(api.users.getRoles);

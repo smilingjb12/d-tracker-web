@@ -5,8 +5,9 @@ import {
   createSignedInUserHandler,
   getByUserIdHandler,
   getCurrentUserHandler,
+  getLastKnownLocationsHandler,
+  getRolesHandler,
 } from "./handlers/users";
-import { requireAuthentication, requireReaderRole } from "./lib/helpers";
 
 export const getCurrentUser = query({
   args: {},
@@ -15,13 +16,10 @@ export const getCurrentUser = query({
   },
 });
 
-export const getLastKnownLocation = query({
+export const getLastKnownLocations = query({
   args: {},
   handler: async (ctx) => {
-    await requireAuthentication(ctx);
-    await requireReaderRole(ctx);
-    const latestRecord = await ctx.db.query("records").order("desc").first();
-    return { lat: latestRecord?.latitude, lng: latestRecord?.longitude };
+    return await getLastKnownLocationsHandler(ctx);
   },
 });
 
@@ -36,12 +34,7 @@ export const getOwnerUsers = internalQuery({
 export const getRoles = query({
   args: {},
   handler: async (ctx): Promise<("reader" | "owner")[]> => {
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) {
-      return [];
-    }
-    const user = await getCurrentUserHandler(ctx);
-    return user?.roles ?? [];
+    return await getRolesHandler(ctx);
   },
 });
 
