@@ -29,7 +29,7 @@ export const notifyIfStoppedSendingData = internalAction({
       const ownerUsers = await ctx.runQuery(internal.users.getOwnerUsers, {});
       const toEmails = ownerUsers.map((u) => u.email);
       const { error } = await resend.emails.send({
-        from: "Acme <onboarding@resend.dev>",
+        from: "D-Tracker <onboarding@resend.dev>",
         to: toEmails,
         subject: "Device stopped sending data",
         react: StoppedSendingData({ minutesSinceLastUpdate: minutesPast }),
