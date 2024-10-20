@@ -27,8 +27,8 @@ export const getRolesHandler = async (
 export const getLastKnownLocationsHandler = async (ctx: QueryCtx) => {
   await requireAuthentication(ctx);
   await requireReaderRole(ctx);
-  const last3Records = await ctx.db.query("records").order("desc").take(5);
-  return last3Records.map((r) => ({ lat: r.latitude, lng: r.longitude }));
+  const lastFewRecords = await ctx.db.query("records").order("desc").take(5);
+  return lastFewRecords.map((r) => ({ lat: r.latitude, lng: r.longitude }));
 };
 
 export const getCurrentUserHandler = async (ctx: QueryCtx) => {
