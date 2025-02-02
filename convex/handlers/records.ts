@@ -35,6 +35,7 @@ export const getStatsHandler = async (ctx: QueryCtx) => {
   return {
     updateIntervalInMinutes,
     lastUpdatedAt,
+    dailySteps: last5Records[0].steps,
     landlord,
   };
 };

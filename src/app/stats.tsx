@@ -31,7 +31,7 @@ export function Stats() {
   };
 
   return (
-    <div className="flex flex-col gap-y-8 mx-auto max-w-fit">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mx-auto w-full max-w-4xl md:justify-between">
       <StatItem
         title="Last Updated"
         value={getLastUpdatedString(stats.lastUpdatedAt)}
@@ -40,6 +40,7 @@ export function Stats() {
         title="Update Interval"
         value={Math.floor(stats.updateIntervalInMinutes) + " minutes"}
       />
+      <StatItem title="Daily Steps" value={stats.dailySteps ?? "N/A"} />
       <StatItem
         title="Contacts"
         value={
