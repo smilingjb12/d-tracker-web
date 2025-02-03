@@ -57,7 +57,7 @@ async function sendStoppedSendingDataEmail(
       from: "D-Tracker <onboarding@resend.dev>",
       to: toEmails,
       subject: "Device stopped sending data",
-      react: StoppedSendingData({ minutesSinceLastUpdate: minutesPast }),
+      react: await StoppedSendingData({ minutesSinceLastUpdate: minutesPast }),
     });
   } catch (error) {
     console.error("Error sending email:", error);
