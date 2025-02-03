@@ -2,8 +2,13 @@
 
 import { Button } from "@/components/ui/button";
 import { Constants } from "@/constants";
-import { SignInButton, useClerk, useUser } from "@clerk/nextjs";
-import { Authenticated, Unauthenticated } from "convex/react";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  useClerk,
+  useUser,
+} from "@clerk/nextjs";
 import { DraftingCompassIcon, LogOutIcon, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -41,24 +46,24 @@ export function Header() {
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </Button>
         <div className="hidden md:flex md:items-center gap-4 text-foreground">
-          <Authenticated>
+          <SignedIn>
             <AvatarDropdown
               fullName={user?.fullName}
               imageUrl={user?.imageUrl}
               email={user?.emailAddresses[0].emailAddress}
             />
-          </Authenticated>
-          <Unauthenticated>
+          </SignedIn>
+          <SignedOut>
             <SignInButton mode="modal">
               <Button className="text-lg">Sign In</Button>
             </SignInButton>
-          </Unauthenticated>
+          </SignedOut>
         </div>
       </nav>
       {isMobileMenuOpen && (
         <div className="md:hidden bg-secondary py-4 px-6">
           <div className="flex flex-col gap-4 items-center w-full">
-            <Authenticated>
+            <SignedIn>
               <Button
                 variant="ghost"
                 className="hover:bg-transparent/20 justify-center w-full"
@@ -70,12 +75,12 @@ export function Header() {
                 <LogOutIcon className="mr-2" />
                 Sign Out
               </Button>
-            </Authenticated>
-            <Unauthenticated>
-              <SignInButton mode="redirect">
+            </SignedIn>
+            <SignedOut>
+              <SignInButton mode="modal">
                 <Button className="w-full justify-center">Sign In</Button>
               </SignInButton>
-            </Unauthenticated>
+            </SignedOut>
           </div>
         </div>
       )}
