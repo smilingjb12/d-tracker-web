@@ -8,46 +8,51 @@ import { Stats } from "./stats";
 import dynamic from "next/dynamic";
 import { SignInButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
+import { Suspense } from "react";
+import LoadingIndicator from "@/components/loading-indicator";
 
-const LocationMap = dynamic(() => import("./location-map"), { ssr: false });
+const LocationMap = dynamic(() => import("./location-map"), {
+  ssr: false,
+  loading: () => <LoadingIndicator />,
+});
 
 export default function Home() {
   const roles = useQuery(api.users.getRoles);
-
   const { isAuthenticated, isLoading } = useConvexAuth();
+
   return (
-    <>
-      <div className="container items-center justify-center max-w-(--breakpoint-2xl)">
-        {!isAuthenticated && !isLoading && (
-          <div className="flex justify-center">
-            <SignInButton mode="modal">
-              <Button className="text-lg">Sign In</Button>
-            </SignInButton>
-          </div>
-        )}
-        {isAuthenticated && roles?.includes("reader") && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-6">
-            <Card>
-              <CardHeader className="font-bold text-2xl">Summary</CardHeader>
-              <CardContent>
-                <Stats />
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="font-bold text-2xl">Location</CardHeader>
-              <CardContent>
+    <div className="container items-center justify-center max-w-(--breakpoint-2xl)">
+      {!isAuthenticated && !isLoading && (
+        <div className="flex justify-center">
+          <SignInButton mode="modal">
+            <Button className="text-lg">Sign In</Button>
+          </SignInButton>
+        </div>
+      )}
+      {isAuthenticated && roles?.includes("reader") && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-6">
+          <Card>
+            <CardHeader className="font-bold text-2xl">Summary</CardHeader>
+            <CardContent>
+              <Stats />
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="font-bold text-2xl">Location</CardHeader>
+            <CardContent>
+              <Suspense fallback={<LoadingIndicator />}>
                 <LocationMap />
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader className="font-bold text-2xl">Logs</CardHeader>
-              <CardContent>
-                <LogsTable />
-              </CardContent>
-            </Card>
-          </div>
-        )}
-      </div>
-    </>
+              </Suspense>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader className="font-bold text-2xl">Logs</CardHeader>
+            <CardContent>
+              <LogsTable />
+            </CardContent>
+          </Card>
+        </div>
+      )}
+    </div>
   );
 }
