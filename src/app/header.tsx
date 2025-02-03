@@ -17,7 +17,7 @@ export function Header() {
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-[2000] shadow-md bg-secondary">
+    <header className="fixed top-0 left-0 right-0 z-2000 shadow-md bg-secondary">
       <nav className="container flex h-16 w-full items-center justify-between px-4 md:px-6">
         <div className="flex items-center gap-12">
           <Link

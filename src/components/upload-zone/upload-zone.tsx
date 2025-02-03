@@ -132,7 +132,7 @@ export function UploadZone(props: {
       <label
         htmlFor="file-upload"
         className={twMerge(
-          "relative text-primary mt-4 flex w-64 cursor-pointer items-center justify-center text-sm font-semibold leading-6 focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-600 focus-within:ring-offset-2 hover:text-blue-500"
+          "relative text-primary mt-4 flex w-64 cursor-pointer items-center justify-center text-sm font-semibold leading-6 focus-within:outline-hidden focus-within:ring-2 focus-within:ring-blue-600 focus-within:ring-offset-2 hover:text-blue-500"
         )}
       >
         Choose files or drag and drop

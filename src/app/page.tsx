@@ -17,7 +17,7 @@ export default function Home() {
   const { isAuthenticated, isLoading } = useConvexAuth();
   return (
     <>
-      <div className="container items-center justify-center max-w-screen-2xl">
+      <div className="container items-center justify-center max-w-(--breakpoint-2xl)">
         {!isAuthenticated && !isLoading && (
           <div className="flex justify-center">
             <SignInButton mode="modal">

@@ -85,7 +85,7 @@ export function LogsTable() {
   };
 
   return (
-    <div className="max-w-screen-md mx-auto">
+    <div className="max-w-(--breakpoint-md) mx-auto">
       {isLoading && <LoadingIndicator />}
       {!isLoading && (
         <>
