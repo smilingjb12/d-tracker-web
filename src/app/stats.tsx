@@ -1,4 +1,5 @@
 import LoadingIndicator from "@/components/loading-indicator";
+import { StepsBar } from "@/components/steps-bar";
 import { useQuery } from "convex/react";
 import { formatDistance } from "date-fns";
 import { api } from "../../convex/_generated/api";
@@ -40,7 +41,10 @@ export function Stats() {
         title="Update Interval"
         value={Math.floor(stats.updateIntervalInMinutes) + " minutes"}
       />
-      <StatItem title="Daily Steps" value={stats.dailySteps ?? "N/A"} />
+      <StatItem
+        title="Daily Steps"
+        value={stats.dailySteps ? <StepsBar steps={stats.dailySteps} /> : "N/A"}
+      />
       <StatItem
         title="Contacts"
         value={
