@@ -1,11 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
-import { MapContainer, TileLayer, Marker } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
 type LatLngTuple = [number, number];
+
+// This component handles map updates when points change
+function MapUpdater({ points }: { points: LatLngTuple[] }) {
+  const map = useMap();
+
+  useEffect(() => {
+    if (points.length > 0) {
+      // Invalidate map size to handle container size changes
+      map.invalidateSize();
+
+      // Create bounds that include all points
+      const bounds = L.latLngBounds(points);
+      // Fit the map to show all points with some padding
+      map.fitBounds(bounds, {
+        padding: [50, 50],
+        maxZoom: 18,
+      });
+    }
+  }, [map, points]);
+
+  return null;
+}
 
 export default function LocationMap() {
   const lastKnownLocations = useQuery(api.users.getLastKnownLocations);
@@ -37,7 +59,7 @@ export default function LocationMap() {
     createCustomIcon(0.1),
   ];
 
-  if (!points) {
+  if (!points || points.length === 0) {
     return <div>Loading...</div>;
   }
 
@@ -45,9 +67,13 @@ export default function LocationMap() {
     <div>
       <MapContainer
         center={points[0]}
-        zoom={18}
+        zoom={16}
         style={{ height: "400px", width: "100%" }}
+        // Add these options for better performance and UX
+        zoomControl={true}
+        scrollWheelZoom={true}
       >
+        <MapUpdater points={points} />
         <TileLayer
           url="https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png"
           attribution=""

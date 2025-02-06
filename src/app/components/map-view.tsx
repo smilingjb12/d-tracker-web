@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { GeocodedLocation } from "@/components/geocoded-location";
 import LoadingIndicator from "@/components/loading-indicator";
 import dynamic from "next/dynamic";
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 const LocationMap = dynamic(() => import("../location-map"), {
@@ -13,6 +13,13 @@ const LocationMap = dynamic(() => import("../location-map"), {
 });
 
 export default function MapView() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    // Set visible after mount to ensure proper initialization
+    setIsVisible(true);
+  }, []);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -24,7 +31,7 @@ export default function MapView() {
           <div className="space-y-6">
             <GeocodedLocation />
             <Suspense fallback={<LoadingIndicator />}>
-              <LocationMap />
+              {isVisible && <LocationMap />}
             </Suspense>
           </div>
         </CardContent>
