@@ -49,7 +49,6 @@ export function Stats() {
         title="Contacts"
         value={
           <div className="flex flex-col items-center justify-center text-lg">
-            <div className="font-bold">Landlord</div>
             <div className="flex flex-col justify-center items-center">
               <div className="flex flex-row items-center">
                 <UserIcon size="20" className="mr-1" />

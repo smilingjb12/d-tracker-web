@@ -36,10 +36,9 @@ export default function RootLayout({
           />
           <ScrollToTop />
           <Header />
-          <div className="flex min-h-screen w-full flex-col py-[90px] px-0">
+          <div className="flex min-h-screen w-full flex-col py-[70px] px-0">
             {children}
           </div>
-          <Footer />
           <Toaster />
         </Providers>
       </body>
