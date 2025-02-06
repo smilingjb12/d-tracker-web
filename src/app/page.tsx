@@ -67,9 +67,7 @@ export default function Home() {
           >
             <motion.div variants={item} className="lg:col-span-2">
               <Card className="hover:shadow-lg transition-all duration-300">
-                <CardHeader className="border-b bg-primary/5">
-                  <h2 className="text-2xl font-bold text-primary">Summary</h2>
-                </CardHeader>
+                <CardHeader className="border-b bg-primary/5"></CardHeader>
                 <CardContent className="p-6">
                   <Stats />
                 </CardContent>
@@ -78,9 +76,7 @@ export default function Home() {
 
             <motion.div variants={item}>
               <Card className="h-full hover:shadow-lg transition-all duration-300">
-                <CardHeader className="border-b bg-primary/5">
-                  <h2 className="text-2xl font-bold text-primary">Location</h2>
-                </CardHeader>
+                <CardHeader className="border-b bg-primary/5"></CardHeader>
                 <CardContent className="p-6">
                   <div className="space-y-6">
                     <GeocodedLocation />
@@ -94,9 +90,7 @@ export default function Home() {
 
             <motion.div variants={item}>
               <Card className="h-full hover:shadow-lg transition-all duration-300">
-                <CardHeader className="border-b bg-primary/5">
-                  <h2 className="text-2xl font-bold text-primary">Logs</h2>
-                </CardHeader>
+                <CardHeader className="border-b bg-primary/5"></CardHeader>
                 <CardContent className="p-6">
                   <LogsTable />
                 </CardContent>
