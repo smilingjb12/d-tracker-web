@@ -1,5 +1,5 @@
 import { Resend } from "resend";
-import { internal } from "./_generated/api";
+import { api, internal } from "./_generated/api";
 import { ActionCtx, internalAction } from "./_generated/server";
 import { StoppedSendingData } from "./emails/stoppedSendingData";
 import { ConvexConstants } from "./lib/constants";
@@ -12,7 +12,7 @@ const INACCURACY_IN_MINUTES = 10;
 export const notifyIfStoppedSendingData = internalAction({
   handler: async (ctx: ActionCtx) => {
     const lastRecord = await ctx.runQuery(
-      internal.records.getMostRecentRecord,
+      internal.records.getMostRecentRecordInternal,
       {}
     );
     if (!lastRecord) {

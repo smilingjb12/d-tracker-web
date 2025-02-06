@@ -10,6 +10,7 @@ import { SignInButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { Suspense } from "react";
 import LoadingIndicator from "@/components/loading-indicator";
+import { GeocodedLocation } from "@/components/geocoded-location";
 
 const LocationMap = dynamic(() => import("./location-map"), {
   ssr: false,
@@ -32,21 +33,24 @@ export default function Home() {
       {isAuthenticated && roles?.includes("reader") && (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-6">
           <Card>
-            <CardHeader className="font-bold text-2xl">Summary</CardHeader>
+            <CardHeader className="font-bold text-2xl p-4">Summary</CardHeader>
             <CardContent>
               <Stats />
             </CardContent>
           </Card>
           <Card>
-            <CardHeader className="font-bold text-2xl">Location</CardHeader>
+            <CardHeader className="font-bold text-2xl p-4">Location</CardHeader>
             <CardContent>
-              <Suspense fallback={<LoadingIndicator />}>
-                <LocationMap />
-              </Suspense>
+              <div className="space-y-4">
+                <GeocodedLocation />
+                <Suspense fallback={<LoadingIndicator />}>
+                  <LocationMap />
+                </Suspense>
+              </div>
             </CardContent>
           </Card>
           <Card>
-            <CardHeader className="font-bold text-2xl">Logs</CardHeader>
+            <CardHeader className="font-bold text-2xl p-4">Logs</CardHeader>
             <CardContent>
               <LogsTable />
             </CardContent>

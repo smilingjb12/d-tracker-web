@@ -47,6 +47,7 @@ export const addRecordHandler = async (
     longitude: number;
     power: number;
     steps?: number;
+    place?: string;
   }
 ) => {
   await ctx.db.insert("records", args);
@@ -77,6 +78,16 @@ export const getRecordsPageHandler = async (
     .order("desc")
     .paginate(args.paginationOpts);
   return page;
+};
+
+export const getMostRecentRecordHandler = async (ctx: QueryCtx) => {
+  await requireAuthentication(ctx);
+  await requireReaderRole(ctx);
+  return await ctx.db.query("records").order("desc").first();
+};
+
+export const getMostRecentRecordHandlerInternal = async (ctx: QueryCtx) => {
+  return await ctx.db.query("records").order("desc").first();
 };
 
 function getTimeDifferenceInMinutes(timestamps: number[]): number {

@@ -5,7 +5,10 @@ import {
   addRecordHandler,
   getRecordsPageHandler,
   getStatsHandler,
+  getMostRecentRecordHandler,
+  getMostRecentRecordHandlerInternal,
 } from "./handlers/records";
+import { requireAuthentication, requireReaderRole } from "./lib/helpers";
 
 export const getRecordsPage = query({
   args: { paginationOpts: paginationOptsValidator },
@@ -14,10 +17,17 @@ export const getRecordsPage = query({
   },
 });
 
-export const getMostRecentRecord = internalQuery({
+export const getMostRecentRecord = query({
   args: {},
   handler: async (ctx) => {
-    return await ctx.db.query("records").order("desc").first();
+    return await getMostRecentRecordHandler(ctx);
+  },
+});
+
+export const getMostRecentRecordInternal = internalQuery({
+  args: {},
+  handler: async (ctx) => {
+    return await getMostRecentRecordHandlerInternal(ctx);
   },
 });
 
