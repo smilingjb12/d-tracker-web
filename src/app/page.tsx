@@ -42,7 +42,7 @@ export default function Home() {
   }
 
   return (
-    <div className="h-screen flex flex-col bg-gradient-to-br from-background to-secondary/20">
+    <div className="h-[calc(100vh-140px)] flex flex-col bg-gradient-to-br from-background to-secondary/20">
       <main className="flex-1 overflow-y-auto p-4">
         <div className={activePage === "dashboard" ? "block" : "hidden"}>
           <DashboardView />
@@ -54,7 +54,7 @@ export default function Home() {
           <LogsView />
         </div>
       </main>
-      <nav className="fixed bottom-0 left-0 right-0 bg-background border-t border-border">
+      <nav className="fixed bottom-0 left-0 right-0 h-16 bg-background border-t border-border">
         <div className="flex justify-between">
           <button
             onClick={() => setActivePage("dashboard")}
