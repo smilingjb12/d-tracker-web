@@ -46,7 +46,11 @@ export function Stats() {
         title="Daily Steps"
         value={
           <div className="flex flex-col items-center gap-4 w-full">
-            {stats.dailySteps ? <StepsBar steps={stats.dailySteps} /> : "N/A"}
+            {stats.dailySteps ? (
+              <StepsBar steps={stats.dailySteps} />
+            ) : (
+              stats.dailySteps
+            )}
             {stats.dailyStepsData && (
               <DailyStepsChart className="mb-3" data={stats.dailyStepsData} />
             )}
