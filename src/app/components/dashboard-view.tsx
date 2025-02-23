@@ -1,8 +1,8 @@
 "use client";
 
 import { Card, CardContent } from "@/components/ui/card";
-import { Stats } from "../stats";
 import { motion } from "framer-motion";
+import { Stats } from "../stats";
 
 const container = {
   hidden: { opacity: 0 },
@@ -25,7 +25,7 @@ export default function DashboardView() {
       variants={container}
       initial="hidden"
       animate="show"
-      className="space-y-6 h-fit"
+      className="space-y-5 h-fit"
     >
       <motion.div variants={item}>
         <Card className="hover:shadow-lg transition-all duration-300">

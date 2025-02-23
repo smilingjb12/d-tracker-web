@@ -5,9 +5,15 @@ import { api } from "../../convex/_generated/api";
 import { GeocodeXYZProvider } from "../lib/geocoding/geocode-xyz-provider";
 import { GeocodingProvider } from "@/lib/geocoding/types";
 
-const geocodingProvider: GeocodingProvider = new GeocodeXYZProvider();
+const defaultProvider: GeocodingProvider = new GeocodeXYZProvider();
 
-export function GeocodedLocation() {
+export interface GeocodedLocationProps {
+  geocodingProvider?: GeocodingProvider;
+}
+
+export function GeocodedLocation({
+  geocodingProvider = defaultProvider,
+}: GeocodedLocationProps) {
   const [location, setLocation] = useState<string | null>("N/A");
   const [isLoading, setIsLoading] = useState(true);
   const lastRecord = useQuery(api.records.getMostRecentRecord);
@@ -27,6 +33,8 @@ export function GeocodedLocation() {
         });
 
         setLocation(result.formattedAddress);
+      } catch (error) {
+        setLocation("N/A");
       } finally {
         setIsLoading(false);
       }

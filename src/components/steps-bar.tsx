@@ -1,3 +1,4 @@
+import { useStepsTracker } from "@/hooks/use-steps-tracker";
 import { cn } from "@/lib/utils";
 
 type StepsBarProps = {
@@ -6,13 +7,8 @@ type StepsBarProps = {
 };
 
 export function StepsBar({ steps, showBar = true }: StepsBarProps) {
-  const MAX_STEPS = 6000;
-  const percentage = Math.min(Math.max((steps / MAX_STEPS) * 100, 0), 100);
-  const color =
-    steps > MAX_STEPS
-      ? "linear-gradient(90deg, #8B5CF6 0%, #D946EF 100%)"
-      : `hsla(${percentage * 1.2}, 100%, 50%, 0.9)`;
-  const textColor = steps > MAX_STEPS ? "#D946EF" : color;
+  const calculateStepsData = useStepsTracker();
+  const { percentage, barColor, textColor } = calculateStepsData(steps);
 
   return (
     <div
@@ -27,8 +23,8 @@ export function StepsBar({ steps, showBar = true }: StepsBarProps) {
           <div
             className="h-2.5 rounded-full"
             style={{
-              width: steps > MAX_STEPS ? "100%" : `${percentage}%`,
-              background: color,
+              width: `${percentage}%`,
+              background: barColor,
             }}
           ></div>
         </div>
