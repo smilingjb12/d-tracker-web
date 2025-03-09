@@ -1,8 +1,10 @@
 "use node";
 
+import { WebhookEvent } from "@clerk/clerk-sdk-node";
 import { v } from "convex/values";
+import { Webhook } from "svix";
 import { internalAction } from "./_generated/server";
-import { clearkWebhookHandler } from "./handlers/clerk";
+import { convexEnv } from "./lib/convexEnv";
 
 export const webhook = internalAction({
   args: {
@@ -10,6 +12,8 @@ export const webhook = internalAction({
     payload: v.string(),
   },
   handler: async (ctx, args) => {
-    return await clearkWebhookHandler(ctx, args);
+    const wh = new Webhook(convexEnv.CLERK_WEBHOOK_SECRET);
+    const payload = wh.verify(args.payload, args.headers) as WebhookEvent;
+    return payload;
   },
 });
