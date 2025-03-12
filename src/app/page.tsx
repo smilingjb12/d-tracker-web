@@ -44,15 +44,9 @@ export default function Home() {
   return (
     <div className="h-[calc(100vh-140px)] flex flex-col bg-gradient-to-br from-background to-secondary/20">
       <main className="flex-1 overflow-y-auto px-4 py-2">
-        <div className={activePage === "dashboard" ? "block" : "hidden"}>
-          <DashboardView />
-        </div>
-        <div className={activePage === "map" ? "block" : "hidden"}>
-          <MapView />
-        </div>
-        <div className={activePage === "logs" ? "block" : "hidden"}>
-          <LogsView />
-        </div>
+        {activePage === "dashboard" && <DashboardView />}
+        {activePage === "map" && <MapView />}
+        {activePage === "logs" && <LogsView />}
       </main>
       <nav className="fixed bottom-0 left-0 right-0 h-16 bg-background border-t border-border">
         <div className="flex justify-between">

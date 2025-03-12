@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import LoadingIndicator from "./loading-indicator";
+import { GeocodingProvider } from "@/lib/geocoding/types";
 import { useQuery } from "convex/react";
+import { useEffect, useState } from "react";
 import { api } from "../../convex/_generated/api";
 import { GeocodeXYZProvider } from "../lib/geocoding/geocode-xyz-provider";
-import { GeocodingProvider } from "@/lib/geocoding/types";
+import LoadingIndicator from "./loading-indicator";
 
 const defaultProvider: GeocodingProvider = new GeocodeXYZProvider();
 
@@ -33,7 +33,7 @@ export function GeocodedLocation({
         });
 
         setLocation(result.formattedAddress);
-      } catch (error) {
+      } catch {
         setLocation("N/A");
       } finally {
         setIsLoading(false);

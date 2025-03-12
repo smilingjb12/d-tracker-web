@@ -35,10 +35,14 @@ export const AvatarDropdown = ({ fullName, email, imageUrl }: Props) => {
   return (
     <>
       <DropdownMenu modal={false}>
-        <DropdownMenuTrigger asChild>{ProfileImage()}</DropdownMenuTrigger>
+        <DropdownMenuTrigger asChild>
+          <ProfileImage />
+        </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="min-w-[340px] pb-4">
           <div className="flex flex-row px-5 py-5 gap-x-4">
-            <div>{ProfileImage()}</div>
+            <div>
+              <ProfileImage />
+            </div>
             <div>
               <div className="text-sm">{fullName}</div>
               <div className="text-[13px]">{email}</div>

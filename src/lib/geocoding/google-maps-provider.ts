@@ -1,6 +1,7 @@
 import { GeocodingProvider, GeocodingResult } from "./types";
 
 export class GoogleMapsProvider implements GeocodingProvider {
+  /* eslint-disable @typescript-eslint/no-unused-vars */
   async reverseGeocode(point: {
     latitude: number;
     longitude: number;
