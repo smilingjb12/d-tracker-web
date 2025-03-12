@@ -16,7 +16,7 @@ export function DailyStepsChart({ data, className }: DailyStepsChartProps) {
 
   return (
     <div className={cn("w-full flex flex-col gap-2", className)}>
-      <div className="flex items-end justify-between h-[160px] gap-1">
+      <div className="flex items-end justify-between h-[140px] gap-1">
         {data.map((day) => {
           const percentage = (day.steps / MAX_STEPS) * 100;
           const height = `${Math.max(percentage, 5)}%`;

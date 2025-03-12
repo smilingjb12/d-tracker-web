@@ -1,15 +1,15 @@
 "use client";
 
-import { useState } from "react";
-import { LayoutDashboard, Map, List } from "lucide-react";
-import { useConvexAuth, useQuery } from "convex/react";
-import { api } from "../../convex/_generated/api";
-import { SignInButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
+import { SignInButton } from "@clerk/nextjs";
+import { useConvexAuth, useQuery } from "convex/react";
 import { motion } from "framer-motion";
+import { LayoutDashboard, List, Map } from "lucide-react";
+import { useState } from "react";
+import { api } from "../../convex/_generated/api";
 import DashboardView from "./components/dashboard-view";
-import MapView from "./components/map-view";
 import LogsView from "./components/logs-view";
+import MapView from "./components/map-view";
 
 export default function Home() {
   const [activePage, setActivePage] = useState("dashboard");
@@ -43,7 +43,7 @@ export default function Home() {
 
   return (
     <div className="h-[calc(100vh-140px)] flex flex-col bg-gradient-to-br from-background to-secondary/20">
-      <main className="flex-1 overflow-y-auto p-4">
+      <main className="flex-1 overflow-y-auto px-4 py-2">
         <div className={activePage === "dashboard" ? "block" : "hidden"}>
           <DashboardView />
         </div>

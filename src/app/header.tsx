@@ -22,7 +22,7 @@ export function Header() {
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-2000 shadow-md bg-secondary">
+    <header className="fixed top-0 left-0 right-0 z-2000 shadow-md bg-background border-b border-border">
       <nav className="container flex h-16 w-full items-center justify-between px-4 md:px-6">
         <div className="flex items-center gap-12">
           <Link
@@ -61,7 +61,7 @@ export function Header() {
         </div>
       </nav>
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-secondary py-4 px-6">
+        <div className="md:hidden bg-background py-4 px-6">
           <div className="flex flex-col gap-4 items-center w-full">
             <SignedIn>
               <Button

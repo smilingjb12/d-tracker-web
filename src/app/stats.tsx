@@ -45,7 +45,7 @@ export function Stats() {
       <StatItem
         title="Daily Steps"
         value={
-          <div className="flex flex-col items-center gap-4 w-full">
+          <div className="flex flex-col items-center gap-0 w-full">
             {stats.dailySteps ? (
               <StepsBar steps={stats.dailySteps} />
             ) : (
