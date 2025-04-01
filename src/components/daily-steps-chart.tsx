@@ -1,4 +1,3 @@
-import { Constants } from "@/constants";
 import { cn } from "@/lib/utils";
 
 type DailyStepsChartProps = {
@@ -25,11 +24,6 @@ export function DailyStepsChart({ data, className }: DailyStepsChartProps) {
           const barBackgroundColor = "hsl(var(--primary))";
           // Use the theme's primary foreground color for the text
           const stepTextColor = "hsl(var(--primary-foreground))";
-
-          const color =
-            day.steps > Constants.DAILY_STEPS_GOAL
-              ? "linear-gradient(180deg, #8B5CF6 0%, #D946EF 100%)"
-              : `hsla(${Math.min(percentage * 1.2, 120)}, 100%, 50%, 0.9)`;
 
           return (
             <div
