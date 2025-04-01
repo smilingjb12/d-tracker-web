@@ -11,23 +11,24 @@ export function useStepsTracker() {
     const MAX_STEPS = Constants.DAILY_STEPS_GOAL;
     const percentage = Math.min(Math.max((steps / MAX_STEPS) * 100, 0), 100);
 
-    // Special gradient for exceeding the goal
+    // Use theme's primary color
+    const primaryColor = "hsl(var(--primary))";
+
+    // Special case for exceeding the goal - use primary color
     if (steps > MAX_STEPS) {
       return {
         percentage: 100,
-        barColor: "linear-gradient(90deg, #8B5CF6 0%, #D946EF 100%)",
-        textColor: "#D946EF",
+        barColor: primaryColor,
+        textColor: primaryColor,
       };
     }
 
-    // For 0 to MAX_STEPS, transition from red (0deg) to green (120deg)
-    const hue = (percentage / 100) * 120; // This gives us 0° (red) to 120° (green)
-    const color = `hsla(${hue}, 100%, 50%, 0.9)`;
-
+    // For 0 to MAX_STEPS, use the primary color
+    // The visual progress is shown by the bar's width
     return {
       percentage,
-      barColor: color,
-      textColor: color,
+      barColor: primaryColor,
+      textColor: primaryColor,
     };
   };
 

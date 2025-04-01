@@ -19,7 +19,10 @@ export function StepsBar({ steps, showBar = true }: StepsBarProps) {
     >
       <span style={{ color: textColor }}>{steps}</span>
       {showBar && (
-        <div className="w-32 bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+        <div
+          className="w-32 rounded-full h-2.5"
+          style={{ backgroundColor: "hsl(var(--muted))" }}
+        >
           <div
             className="h-2.5 rounded-full"
             style={{

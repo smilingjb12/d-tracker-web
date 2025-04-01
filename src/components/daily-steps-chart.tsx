@@ -21,6 +21,11 @@ export function DailyStepsChart({ data, className }: DailyStepsChartProps) {
           const percentage = (day.steps / MAX_STEPS) * 100;
           const height = `${Math.max(percentage, 5)}%`;
 
+          // Use the theme's primary color for the bar background
+          const barBackgroundColor = "hsl(var(--primary))";
+          // Use the theme's primary foreground color for the text
+          const stepTextColor = "hsl(var(--primary-foreground))";
+
           const color =
             day.steps > Constants.DAILY_STEPS_GOAL
               ? "linear-gradient(180deg, #8B5CF6 0%, #D946EF 100%)"
@@ -32,18 +37,17 @@ export function DailyStepsChart({ data, className }: DailyStepsChartProps) {
               className="flex-1 relative group min-w-[20px] h-full"
             >
               <div
-                className="w-full rounded-t-md absolute bottom-0"
+                className="w-full rounded-t-md absolute bottom-0 transition-colors duration-200 ease-in-out"
                 style={{
                   height,
-                  background: color,
+                  background: barBackgroundColor,
                 }}
               />
               <div className="absolute inset-x-0 bottom-2 flex justify-center pointer-events-none">
                 <div
-                  className="text-sm font-medium text-white [writing-mode:vertical-lr] rotate-180"
+                  className="text-sm font-medium [writing-mode:vertical-lr] rotate-180 transition-colors duration-200 ease-in-out"
                   style={{
-                    textShadow:
-                      "1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 0 0 8px rgba(0,0,0,0.5)",
+                    color: stepTextColor,
                   }}
                 >
                   {day.steps.toLocaleString()}
