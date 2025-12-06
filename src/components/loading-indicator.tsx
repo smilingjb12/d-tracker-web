@@ -8,6 +8,7 @@ export default function LoadingIndicator({
 }) {
   return (
     <div
+      data-testid="loading-indicator"
       className={cn(
         "w-full h-full flex items-center justify-center",
         className

@@ -11,6 +11,7 @@ import {
 import { usePaginatedQuery, useQuery } from "convex/react";
 import Link from "next/link";
 import { api } from "../../convex/_generated/api";
+import { StepsBar } from "@/components/steps-bar";
 
 type Coords = { lat: number; long: number };
 
@@ -85,7 +86,7 @@ export function LogsTable() {
   };
 
   return (
-    <div className="max-w-screen-md mx-auto">
+    <div className="max-w-(--breakpoint-md) mx-auto">
       {isLoading && <LoadingIndicator />}
       {!isLoading && (
         <>
@@ -95,6 +96,7 @@ export function LogsTable() {
                 <TableHead className="w-fit">Coordinates</TableHead>
                 <TableHead>Date</TableHead>
                 <TableHead>Power</TableHead>
+                <TableHead>Steps</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -119,6 +121,11 @@ export function LogsTable() {
                   <TableCell>
                     <div className="flex items-center space-x-2">
                       <PowerBar power={r.power} />
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex items-center space-x-2">
+                      <StepsBar steps={r.steps ?? 0} showBar={false} />
                     </div>
                   </TableCell>
                 </TableRow>

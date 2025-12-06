@@ -1,20 +1,14 @@
-"use node";
+import { Resend } from "resend";
+import { internal } from "../_generated/api";
+import { ActionCtx } from "../_generated/server";
+import { StoppedSendingData } from "../emails/stoppedSendingData";
+import { ConvexConstants } from "../lib/constants";
+import { convexEnv } from "../lib/convexEnv";
 
-import { render } from "@react-email/render";
-import { Resend } from "@convex-dev/resend";
-import { components, internal } from "./_generated/api";
-import { ActionCtx, internalAction } from "./_generated/server";
-import { ConvexConstants } from "./lib/constants";
-import { StoppedSendingData } from "./emails/stoppedSendingData";
+const resend = new Resend(convexEnv.RESEND_API_KEY);
 
-const resend = new Resend(components.resend, {
-  testMode: false,
-});
-
-const INACCURACY_IN_MINUTES = 10;
-
-export const notifyIfStoppedSendingData = internalAction({
-  handler: async (ctx: ActionCtx) => {
+export const EmailService = {
+  async notifyIfStoppedSendingData(ctx: ActionCtx) {
     const lastRecord = await ctx.runQuery(
       internal.records.getMostRecentRecordInternal,
       {}
@@ -32,7 +26,7 @@ export const notifyIfStoppedSendingData = internalAction({
       await sendStoppedSendingDataEmail(ctx, minutesPast);
     }
   },
-});
+};
 
 function getMinutesDifferenceToNow(timestamp: number) {
   const now = Date.now();
@@ -42,6 +36,7 @@ function getMinutesDifferenceToNow(timestamp: number) {
 }
 
 function shouldSendNotification(minutesPast: number): boolean {
+  const INACCURACY_IN_MINUTES = 10;
   return (
     minutesPast >
     ConvexConstants.EXPECTED_UPDATE_INTERVAL_IN_MINUTES + INACCURACY_IN_MINUTES
@@ -56,16 +51,12 @@ async function sendStoppedSendingDataEmail(
   const ownerUsers = await ctx.runQuery(internal.users.getOwnerUsers, {});
   const toEmails = ownerUsers.map((u) => u.email);
 
-  const html = await render(
-    <StoppedSendingData minutesSinceLastUpdate={minutesPast} />
-  );
-
   try {
-    await resend.sendEmail(ctx, {
+    await resend.emails.send({
       from: "D-Tracker <onboarding@resend.dev>",
       to: toEmails,
       subject: "Device stopped sending data",
-      html,
+      react: await StoppedSendingData({ minutesSinceLastUpdate: minutesPast }),
     });
   } catch (error) {
     console.error("Error sending email:", error);

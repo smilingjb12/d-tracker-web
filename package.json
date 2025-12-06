@@ -1,5 +1,5 @@
 {
-  "name": "thumbnail-scorer",
+  "name": "d-tracker",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -11,6 +11,7 @@
     "stripe:trigger": "stripe trigger payment_intent.succeeded"
   },
   "dependencies": {
+    "@clerk/clerk-sdk-node": "^4.13.23",
     "@clerk/nextjs": "^6.36.0",
     "@clerk/themes": "^2.4.42",
     "@convex-dev/resend": "^0.2.1",
@@ -42,9 +43,8 @@
     "react-leaflet": "^4.2.1",
     "resend": "^4.0.0",
     "sharp": "^0.33.5",
-    "stripe": "^16.12.0",
-    "svix": "^1.36.0",
-    "tailwind-merge": "^2.5.2",
+    "svix": "^1.45.1",
+    "tailwind-merge": "^3.0.1",
     "tailwindcss-animate": "^1.0.7",
     "typescript-eslint": "^8.48.1",
     "usehooks-ts": "^3.1.0",

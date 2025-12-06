@@ -1,23 +1,31 @@
 import { paginationOptsValidator } from "convex/server";
 import { v } from "convex/values";
 import { internalMutation, internalQuery, query } from "./_generated/server";
-import {
-  addRecordHandler,
-  getRecordsPageHandler,
-  getStatsHandler,
-} from "./handlers/records";
+import { requireAuthentication, requireReaderRole } from "./lib/helpers";
+import { RecordService } from "./services/record.service";
 
 export const getRecordsPage = query({
   args: { paginationOpts: paginationOptsValidator },
   handler: async (ctx, args) => {
-    return await getRecordsPageHandler(ctx, args);
+    await requireAuthentication(ctx);
+    await requireReaderRole(ctx);
+    return await RecordService.getRecordsPage(ctx, args);
   },
 });
 
-export const getMostRecentRecord = internalQuery({
+export const getMostRecentRecord = query({
   args: {},
   handler: async (ctx) => {
-    return await ctx.db.query("records").order("desc").first();
+    await requireAuthentication(ctx);
+    await requireReaderRole(ctx);
+    return await RecordService.getMostRecentRecord(ctx);
+  },
+});
+
+export const getMostRecentRecordInternal = internalQuery({
+  args: {},
+  handler: async (ctx) => {
+    return await RecordService.getMostRecentRecord(ctx);
   },
 });
 
@@ -29,13 +37,15 @@ export const addRecord = internalMutation({
     steps: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
-    return await addRecordHandler(ctx, args);
+    return await RecordService.addRecord(ctx, args);
   },
 });
 
 export const getStats = query({
   args: {},
   handler: async (ctx) => {
-    return await getStatsHandler(ctx);
+    await requireAuthentication(ctx);
+    await requireReaderRole(ctx);
+    return await RecordService.getStats(ctx);
   },
 });

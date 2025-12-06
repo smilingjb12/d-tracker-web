@@ -71,7 +71,7 @@ export default function LocationMap() {
     };
   }, [points]);
 
-  if (!points) {
+  if (!points || points.length === 0) {
     return <div>Loading...</div>;
   }
 

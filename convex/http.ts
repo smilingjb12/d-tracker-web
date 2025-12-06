@@ -1,7 +1,6 @@
 import { httpRouter } from "convex/server";
 import { httpAction } from "./_generated/server";
-import { clerkRouteHandler } from "./handlers/http";
-import { recordsPostHandler } from "./handlers/records";
+import { HttpService } from "./services/http.service";
 
 const http = httpRouter();
 
@@ -9,7 +8,7 @@ http.route({
   path: "/clerk",
   method: "POST",
   handler: httpAction(async (ctx, req) => {
-    return await clerkRouteHandler(ctx, req);
+    return await HttpService.processClerkWebhook(ctx, req);
   }),
 });
 
@@ -17,7 +16,7 @@ http.route({
   path: "/records",
   method: "POST",
   handler: httpAction(async (ctx, req) => {
-    return await recordsPostHandler(ctx, req);
+    return await HttpService.processRecordsPost(ctx, req);
   }),
 });
 

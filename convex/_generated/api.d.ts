@@ -1,5 +1,3 @@
-/* prettier-ignore-start */
-
 /* eslint-disable */
 /**
  * Generated `api` utility.
@@ -12,13 +10,8 @@
 
 import type * as clerk from "../clerk.js";
 import type * as crons from "../crons.js";
-import type * as emails_stoppedSendingData from "../emails/stoppedSendingData.js";
 import type * as emails from "../emails.js";
-import type * as handlers_clerk from "../handlers/clerk.js";
-import type * as handlers_http from "../handlers/http.js";
-import type * as handlers_knownLocations from "../handlers/knownLocations.js";
-import type * as handlers_records from "../handlers/records.js";
-import type * as handlers_users from "../handlers/users.js";
+import type * as emails_stoppedSendingData from "../emails/stoppedSendingData.js";
 import type * as http from "../http.js";
 import type * as knownLocations from "../knownLocations.js";
 import type * as lib_constants from "../lib/constants.js";
@@ -26,7 +19,6 @@ import type * as lib_convexEnv from "../lib/convexEnv.js";
 import type * as lib_env from "../lib/env.js";
 import type * as lib_helpers from "../lib/helpers.js";
 import type * as lib_rateLimits from "../lib/rateLimits.js";
-import type * as lib_session from "../lib/session.js";
 import type * as records from "../records.js";
 import type * as users from "../users.js";
 
@@ -35,24 +27,12 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
-/**
- * A utility for referencing Convex functions in your app's API.
- *
- * Usage:
- * ```js
- * const myFunctionReference = api.myModule.myFunction;
- * ```
- */
+
 declare const fullApi: ApiFromModules<{
   clerk: typeof clerk;
   crons: typeof crons;
-  "emails/stoppedSendingData": typeof emails_stoppedSendingData;
   emails: typeof emails;
-  "handlers/clerk": typeof handlers_clerk;
-  "handlers/http": typeof handlers_http;
-  "handlers/knownLocations": typeof handlers_knownLocations;
-  "handlers/records": typeof handlers_records;
-  "handlers/users": typeof handlers_users;
+  "emails/stoppedSendingData": typeof emails_stoppedSendingData;
   http: typeof http;
   knownLocations: typeof knownLocations;
   "lib/constants": typeof lib_constants;
@@ -60,18 +40,33 @@ declare const fullApi: ApiFromModules<{
   "lib/env": typeof lib_env;
   "lib/helpers": typeof lib_helpers;
   "lib/rateLimits": typeof lib_rateLimits;
-  "lib/session": typeof lib_session;
   records: typeof records;
   users: typeof users;
 }>;
-declare const fullApiWithMounts: typeof fullApi;
 
+/**
+ * A utility for referencing Convex functions in your app's public API.
+ *
+ * Usage:
+ * ```js
+ * const myFunctionReference = api.myModule.myFunction;
+ * ```
+ */
 export declare const api: FilterApi<
-  typeof fullApiWithMounts,
+  typeof fullApi,
   FunctionReference<any, "public">
 >;
+
+/**
+ * A utility for referencing Convex functions in your app's internal API.
+ *
+ * Usage:
+ * ```js
+ * const myFunctionReference = internal.myModule.myFunction;
+ * ```
+ */
 export declare const internal: FilterApi<
-  typeof fullApiWithMounts,
+  typeof fullApi,
   FunctionReference<any, "internal">
 >;
 
@@ -226,5 +221,3 @@ export declare const components: {
     };
   };
 };
-
-/* prettier-ignore-end */

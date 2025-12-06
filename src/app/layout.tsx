@@ -1,13 +1,12 @@
+import ScrollToTop from "@/components/scroll-to-top";
 import { Toaster } from "@/components/ui/toaster";
+import { Constants } from "@/constants";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Footer } from "./footer";
-import "./globals.css";
-import { Providers } from "./providers";
-import ScrollToTop from "@/components/scroll-to-top";
-import { Constants } from "@/constants";
 import NextTopLoader from "nextjs-toploader";
+import "./globals.css";
 import { Header } from "./header";
+import { Providers } from "./providers";
 
 export const metadata: Metadata = {
   title: Constants.APP_NAME,
@@ -24,8 +23,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className="dark">
-      <body className={`${inter.className} antialiased`}>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${inter.className} antialiased`}
+        suppressHydrationWarning
+      >
         <Providers>
           <NextTopLoader
             showSpinner={false}
@@ -33,10 +35,9 @@ export default function RootLayout({
           />
           <ScrollToTop />
           <Header />
-          <div className="flex min-h-screen w-full flex-col py-24 px-6">
+          <div className="flex min-h-screen w-full flex-col py-[70px] px-0">
             {children}
           </div>
-          <Footer />
           <Toaster />
         </Providers>
       </body>

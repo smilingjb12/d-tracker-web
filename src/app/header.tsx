@@ -2,8 +2,13 @@
 
 import { Button } from "@/components/ui/button";
 import { Constants } from "@/constants";
-import { SignInButton, useClerk, useUser } from "@clerk/nextjs";
-import { Authenticated, Unauthenticated } from "convex/react";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  useClerk,
+  useUser,
+} from "@clerk/nextjs";
 import { DraftingCompassIcon, LogOutIcon, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -17,7 +22,7 @@ export function Header() {
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-[2000] shadow-md bg-secondary">
+    <header className="fixed top-0 left-0 right-0 z-2000 shadow-md bg-background border-b border-border">
       <nav className="container flex h-16 w-full items-center justify-between px-4 md:px-6">
         <div className="flex items-center gap-12">
           <Link
@@ -41,24 +46,24 @@ export function Header() {
           {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </Button>
         <div className="hidden md:flex md:items-center gap-4 text-foreground">
-          <Authenticated>
+          <SignedIn>
             <AvatarDropdown
               fullName={user?.fullName}
               imageUrl={user?.imageUrl}
               email={user?.emailAddresses[0].emailAddress}
             />
-          </Authenticated>
-          <Unauthenticated>
+          </SignedIn>
+          <SignedOut>
             <SignInButton mode="modal">
               <Button className="text-lg">Sign In</Button>
             </SignInButton>
-          </Unauthenticated>
+          </SignedOut>
         </div>
       </nav>
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-secondary py-4 px-6">
+        <div className="md:hidden bg-background py-4 px-6">
           <div className="flex flex-col gap-4 items-center w-full">
-            <Authenticated>
+            <SignedIn>
               <Button
                 variant="ghost"
                 className="hover:bg-transparent/20 justify-center w-full"
@@ -70,12 +75,12 @@ export function Header() {
                 <LogOutIcon className="mr-2" />
                 Sign Out
               </Button>
-            </Authenticated>
-            <Unauthenticated>
-              <SignInButton mode="redirect">
+            </SignedIn>
+            <SignedOut>
+              <SignInButton mode="modal">
                 <Button className="w-full justify-center">Sign In</Button>
               </SignInButton>
-            </Unauthenticated>
+            </SignedOut>
           </div>
         </div>
       )}

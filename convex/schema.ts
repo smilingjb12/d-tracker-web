@@ -9,6 +9,7 @@ export default defineSchema({
     latitude: v.number(),
     longitude: v.number(),
     steps: v.optional(v.number()),
+    place: v.optional(v.string()),
   }),
   users: defineTable({
     userId: v.string(),
