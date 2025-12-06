@@ -5,7 +5,7 @@ import LoadingIndicator from "@/components/loading-indicator";
 import dynamic from "next/dynamic";
 import { Suspense, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { MapPin, Navigation } from "lucide-react";
+import { MapPin } from "lucide-react";
 
 const LocationMap = dynamic(() => import("../location-map"), {
   ssr: false,
@@ -30,21 +30,6 @@ export default function MapView() {
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       className="space-y-6"
     >
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="font-display text-2xl md:text-3xl font-medium text-foreground">
-            Location
-          </h1>
-          <p className="text-muted-foreground mt-1">
-            Current whereabouts
-          </p>
-        </div>
-        <div className="p-3 rounded-xl bg-primary/10 text-primary">
-          <Navigation size={24} strokeWidth={1.5} />
-        </div>
-      </div>
-
       {/* Location card */}
       <div className="bg-card/80 backdrop-blur-sm rounded-3xl border border-border/50 shadow-soft overflow-hidden">
         {/* Address section */}

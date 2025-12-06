@@ -34,16 +34,6 @@ export default function DashboardView() {
       animate="show"
       className="space-y-6"
     >
-      {/* Welcome section */}
-      <motion.div variants={item} className="mb-2">
-        <h1 className="font-display text-2xl md:text-3xl font-medium text-foreground">
-          Dashboard
-        </h1>
-        <p className="text-muted-foreground mt-1">
-          Everything looks good today
-        </p>
-      </motion.div>
-
       {/* Stats card with organic styling */}
       <motion.div variants={item}>
         <div className="bg-card/80 backdrop-blur-sm rounded-3xl border border-border/50 shadow-soft p-6 md:p-8 hover:shadow-soft-lg transition-all duration-500">
