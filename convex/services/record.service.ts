@@ -101,10 +101,27 @@ async function getLast5DaysStepsData(ctx: QueryCtx) {
     }
   });
 
-  // Convert to array and sort by date
-  return Array.from(recordsByDay.values()).sort((a, b) =>
-    a.date.localeCompare(b.date)
-  );
+  // Generate all 5 days (today and 4 previous days) to ensure chart always shows 5 days
+  const result: Array<{ date: string; steps: number }> = [];
+  for (let i = 4; i >= 0; i--) {
+    const dayTimestamp = now - i * 24 * 60 * 60 * 1000;
+    const dateStr = new Date(dayTimestamp)
+      .toLocaleString("en-CA", {
+        timeZone: "Europe/Brussels",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      })
+      .split(",")[0];
+
+    const existingData = recordsByDay.get(dateStr);
+    result.push({
+      date: dateStr,
+      steps: existingData?.steps ?? 0,
+    });
+  }
+
+  return result;
 }
 
 function getTimeDifferenceInMinutes(timestamps: number[]): number {
