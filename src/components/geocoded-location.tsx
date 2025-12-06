@@ -1,3 +1,5 @@
+"use client";
+
 import { GeocodingProvider } from "@/lib/geocoding/types";
 import { useQuery } from "convex/react";
 import { useEffect, useState } from "react";
@@ -44,14 +46,22 @@ export function GeocodedLocation({
   }, [lastRecord, geocodingProvider]);
 
   if (isLoading) {
-    return <LoadingIndicator />;
+    return (
+      <div className="h-6 flex items-center">
+        <div className="w-4 h-4">
+          <LoadingIndicator className="scale-50 origin-left" />
+        </div>
+      </div>
+    );
   }
 
   return (
     <div
-      className={`text-lg mb-1 ${location === "N/A" ? "opacity-0" : "opacity-100"}`}
+      className={`transition-opacity duration-300 ${
+        location === "N/A" ? "opacity-50 text-muted-foreground" : "opacity-100"
+      }`}
     >
-      {location}
+      {location || "Unknown location"}
     </div>
   );
 }

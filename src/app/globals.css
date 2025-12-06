@@ -1,3 +1,6 @@
+/* Import beautiful fonts - must come before tailwindcss import */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap');
+
 @import 'tailwindcss';
 
 @custom-variant dark (&:is(.dark *));
@@ -27,6 +30,12 @@
   --color-destructive: hsl(var(--destructive));
   --color-destructive-foreground: hsl(var(--destructive-foreground));
 
+  --color-success: hsl(var(--success));
+  --color-success-foreground: hsl(var(--success-foreground));
+
+  --color-warm: hsl(var(--warm));
+  --color-warm-foreground: hsl(var(--warm-foreground));
+
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
@@ -40,6 +49,10 @@
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
+
+  /* Custom font families */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'DM Sans', system-ui, sans-serif;
 }
 
 @utility container {
@@ -88,64 +101,111 @@
 
 @layer utilities {
   body {
-    font-family: '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif', '"Apple Color Emoji"', '"Segoe UI Emoji"', '"Segoe UI Symbol"';
+    font-family: var(--font-body);
+  }
+
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  .font-body {
+    font-family: var(--font-body);
   }
 }
 
 @layer base {
   :root {
-    --background: 270 50% 98%; /* Very light purple */
-    --foreground: 270 20% 15%; /* Very dark desaturated purple */
-    --card: 270 60% 100%; /* White with a hint of purple */
-    --card-foreground: 270 20% 15%; /* Very dark desaturated purple */
-    --popover: 270 60% 100%; /* White with a hint of purple */
-    --popover-foreground: 270 20% 15%; /* Very dark desaturated purple */
-    --primary: 265 80% 60%; /* Bright purple */
-    --primary-foreground: 270 20% 99%; /* Almost white */
-    --secondary: 270 40% 95%; /* Light purple-gray */
-    --secondary-foreground: 270 15% 30%; /* Dark purple-gray */
-    --muted: 270 40% 95%; /* Light purple-gray */
-    --muted-foreground: 270 10% 50%; /* Medium purple-gray */
-    --accent: 260 70% 92%; /* Light accent purple */
-    --accent-foreground: 260 60% 40%; /* Darker accent purple */
-    --destructive: 350 70% 60%; /* Contrasting pinkish-red */
-    --destructive-foreground: 350 20% 99%; /* Almost white */
-    --border: 270 30% 90%; /* Light purple border */
-    --input: 270 30% 90%; /* Light purple border */
-    --ring: 265 80% 60%; /* Bright purple ring */
-    --radius: 0.5rem;
-    --chart-1: 265 70% 55%; /* Purple */
-    --chart-2: 280 60% 65%; /* Mauve */
-    --chart-3: 250 50% 50%; /* Indigo */
-    --chart-4: 300 65% 60%; /* Magenta */
-    --chart-5: 275 75% 70%; /* Violet */
+    /* Gentle Guardian - Soft Organic Light Theme */
+    /* Warm, earthy, calming palette for family tracking */
+
+    --background: 40 33% 97%; /* Warm cream */
+    --foreground: 25 25% 20%; /* Deep warm brown */
+
+    --card: 40 40% 99%; /* Soft white with warmth */
+    --card-foreground: 25 25% 20%;
+
+    --popover: 40 40% 99%;
+    --popover-foreground: 25 25% 20%;
+
+    --primary: 152 35% 45%; /* Sage green - calming, natural */
+    --primary-foreground: 40 40% 99%;
+
+    --secondary: 30 30% 92%; /* Warm sand */
+    --secondary-foreground: 25 20% 35%;
+
+    --muted: 35 25% 93%; /* Soft beige */
+    --muted-foreground: 25 15% 50%;
+
+    --accent: 24 60% 92%; /* Soft peach/terracotta tint */
+    --accent-foreground: 20 50% 35%;
+
+    --destructive: 0 60% 60%; /* Soft coral red */
+    --destructive-foreground: 40 40% 99%;
+
+    --success: 152 40% 40%; /* Deeper sage for success */
+    --success-foreground: 40 40% 99%;
+
+    --warm: 24 70% 55%; /* Warm terracotta accent */
+    --warm-foreground: 40 40% 99%;
+
+    --border: 35 25% 88%;
+    --input: 35 25% 88%;
+    --ring: 152 35% 45%;
+
+    --radius: 1rem; /* More rounded for organic feel */
+
+    /* Nature-inspired chart colors */
+    --chart-1: 152 35% 45%; /* Sage */
+    --chart-2: 24 55% 55%; /* Terracotta */
+    --chart-3: 180 25% 50%; /* Soft teal */
+    --chart-4: 40 50% 60%; /* Golden sand */
+    --chart-5: 340 30% 60%; /* Dusty rose */
   }
 
   .dark {
-    --background: 270 25% 10%; /* Very dark purple */
-    --foreground: 270 30% 94%; /* Light grayish purple */
-    --card: 270 20% 13%; /* Slightly lighter dark purple */
-    --card-foreground: 270 30% 94%; /* Light grayish purple */
-    --popover: 270 20% 13%; /* Slightly lighter dark purple */
-    --popover-foreground: 270 30% 94%; /* Light grayish purple */
-    --primary: 265 85% 70%; /* Brighter purple */
-    --primary-foreground: 270 30% 96%; /* Very light grayish purple */
-    --secondary: 270 15% 20%; /* Darker purple-gray */
-    --secondary-foreground: 270 25% 90%; /* Lighter grayish purple */
-    --muted: 270 15% 20%; /* Darker purple-gray */
-    --muted-foreground: 270 10% 55%; /* Medium-dark purple-gray */
-    --accent: 260 40% 25%; /* Dark accent purple */
-    --accent-foreground: 260 60% 90%; /* Light accent purple */
-    --destructive: 350 65% 55%; /* Darker pinkish-red */
-    --destructive-foreground: 350 20% 98%;
-    --border: 270 15% 25%; /* Slightly lighter dark border */
-    --input: 270 15% 25%; /* Slightly lighter dark border */
-    --ring: 265 85% 70%; /* Brighter purple ring */
-    --chart-1: 265 65% 60%;
-    --chart-2: 280 55% 70%;
-    --chart-3: 250 45% 55%;
-    --chart-4: 300 60% 65%;
-    --chart-5: 275 70% 75%;
+    /* Gentle Guardian - Soft Organic Dark Theme */
+    /* Cozy evening warmth */
+
+    --background: 25 20% 10%; /* Deep warm brown */
+    --foreground: 35 30% 90%; /* Warm cream text */
+
+    --card: 25 18% 14%; /* Slightly lighter warm dark */
+    --card-foreground: 35 30% 90%;
+
+    --popover: 25 18% 14%;
+    --popover-foreground: 35 30% 90%;
+
+    --primary: 152 40% 55%; /* Brighter sage for dark mode */
+    --primary-foreground: 25 20% 10%;
+
+    --secondary: 25 15% 20%; /* Warm dark secondary */
+    --secondary-foreground: 35 25% 85%;
+
+    --muted: 25 15% 18%;
+    --muted-foreground: 35 15% 55%;
+
+    --accent: 24 40% 25%; /* Dark terracotta */
+    --accent-foreground: 30 50% 90%;
+
+    --destructive: 0 50% 50%;
+    --destructive-foreground: 35 30% 95%;
+
+    --success: 152 45% 50%;
+    --success-foreground: 25 20% 10%;
+
+    --warm: 24 60% 50%;
+    --warm-foreground: 25 20% 10%;
+
+    --border: 25 15% 22%;
+    --input: 25 15% 22%;
+    --ring: 152 40% 55%;
+
+    /* Dark mode chart colors */
+    --chart-1: 152 40% 55%;
+    --chart-2: 24 50% 60%;
+    --chart-3: 180 30% 55%;
+    --chart-4: 40 45% 65%;
+    --chart-5: 340 35% 65%;
   }
 }
 
@@ -158,13 +218,95 @@
   }
 }
 
-/* Add custom scrollbar */
+/* Organic background pattern */
+.organic-bg {
+  background-image:
+    radial-gradient(ellipse at 20% 80%, hsl(var(--primary) / 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, hsl(var(--warm) / 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, hsl(var(--accent) / 0.04) 0%, transparent 70%);
+}
+
+/* Subtle grain texture overlay */
+.grain-overlay::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  z-index: 1000;
+}
+
+/* Soft blob shapes for decorative elements */
+.blob-shape {
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+}
+
+/* Smooth pill shapes */
+.pill-shape {
+  border-radius: 9999px;
+}
+
+/* Glassmorphism card effect */
+.glass-card {
+  background: hsl(var(--card) / 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Soft shadow system */
+.shadow-soft {
+  box-shadow:
+    0 2px 8px -2px hsl(var(--foreground) / 0.06),
+    0 4px 16px -4px hsl(var(--foreground) / 0.08);
+}
+
+.shadow-soft-lg {
+  box-shadow:
+    0 4px 12px -4px hsl(var(--foreground) / 0.08),
+    0 8px 24px -8px hsl(var(--foreground) / 0.12);
+}
+
+/* Organic hover lift effect */
+.hover-lift {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+}
+
+/* Nature-inspired progress bar gradient */
+.progress-nature {
+  background: linear-gradient(
+    90deg,
+    hsl(152 35% 55%) 0%,
+    hsl(152 40% 50%) 50%,
+    hsl(140 45% 45%) 100%
+  );
+}
+
+/* Warm progress bar for alerts/low values */
+.progress-warm {
+  background: linear-gradient(
+    90deg,
+    hsl(24 60% 55%) 0%,
+    hsl(30 55% 50%) 100%
+  );
+}
+
+/* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: hsl(var(--muted) / 0.5);
   border-radius: 4px;
 }
 
@@ -175,4 +317,88 @@
 
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(var(--muted-foreground) / 0.5);
+}
+
+/* Smooth page transitions */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gentlePulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes breathe {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+.animate-gentle-pulse {
+  animation: gentlePulse 3s ease-in-out infinite;
+}
+
+.animate-breathe {
+  animation: breathe 4s ease-in-out infinite;
+}
+
+/* Stagger animation delays */
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+
+/* Typography refinements */
+h1, h2, h3, h4, h5, h6, .heading {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+/* Selection color */
+::selection {
+  background: hsl(var(--primary) / 0.2);
+  color: hsl(var(--foreground));
+}
+
+/* Focus visible styling */
+:focus-visible {
+  outline: 2px solid hsl(var(--primary) / 0.5);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Leaflet map overrides for organic theme */
+.leaflet-container {
+  border-radius: 1rem;
+  font-family: var(--font-body);
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: 0.75rem;
+  font-family: var(--font-body);
+}
+
+.leaflet-popup-tip-container {
+  display: none;
 }

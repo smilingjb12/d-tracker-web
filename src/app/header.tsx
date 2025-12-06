@@ -9,7 +9,7 @@ import {
   useClerk,
   useUser,
 } from "@clerk/nextjs";
-import { DraftingCompassIcon, LogOutIcon, Menu, X } from "lucide-react";
+import { LogOutIcon, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { AvatarDropdown } from "./avatar-dropdown";
@@ -22,29 +22,59 @@ export function Header() {
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-2000 shadow-md bg-background border-b border-border">
+    <header className="fixed top-0 left-0 right-0 z-[2000] bg-background/80 backdrop-blur-xl border-b border-border/50">
+      {/* Decorative top accent line */}
+      <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+
       <nav className="container flex h-16 w-full items-center justify-between px-4 md:px-6">
         <div className="flex items-center gap-12">
           <Link
             href="/"
-            className="flex items-center gap-2 group hover:text-primary transition-colors duration-100 text-primary"
+            className="flex items-center gap-3 group transition-all duration-300"
           >
-            <DraftingCompassIcon className="size-7" />
-            <span className="text-base font-semibold sm:text-lg md:text-xl lg:text-xl group-hover:text-primary">
+            {/* Custom organic logo mark */}
+            <div className="relative">
+              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center shadow-soft group-hover:shadow-soft-lg transition-shadow duration-300">
+                <svg
+                  viewBox="0 0 24 24"
+                  className="w-5 h-5 text-primary-foreground"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="12" cy="12" r="3" />
+                  <path d="M12 2v4" />
+                  <path d="M12 18v4" />
+                  <path d="m4.93 4.93 2.83 2.83" />
+                  <path d="m16.24 16.24 2.83 2.83" />
+                  <path d="M2 12h4" />
+                  <path d="M18 12h4" />
+                  <path d="m4.93 19.07 2.83-2.83" />
+                  <path d="m16.24 7.76 2.83-2.83" />
+                </svg>
+              </div>
+              {/* Subtle pulse ring */}
+              <div className="absolute inset-0 rounded-full bg-primary/20 animate-ping opacity-0 group-hover:opacity-100" style={{ animationDuration: '2s' }} />
+            </div>
+            <span className="font-display text-lg font-medium tracking-tight text-foreground group-hover:text-primary transition-colors duration-300">
               {Constants.APP_NAME}
             </span>
           </Link>
-          <div className="hidden md:flex md:items-center md:ml-20 lg:ml-40">
-            <div className="flex items-center md:gap-6 lg:gap-12 text-sm sm:text-base md:text-lg lg:text-lg font-medium"></div>
-          </div>
         </div>
+
+        {/* Mobile menu button */}
         <Button
-          className="md:hidden"
+          className="md:hidden hover:bg-accent/50"
           variant="ghost"
+          size="icon"
           onClick={toggleMobileMenu}
         >
-          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          {isMobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
         </Button>
+
+        {/* Desktop auth section */}
         <div className="hidden md:flex md:items-center gap-4 text-foreground">
           <SignedIn>
             <AvatarDropdown
@@ -55,30 +85,36 @@ export function Header() {
           </SignedIn>
           <SignedOut>
             <SignInButton mode="modal">
-              <Button className="text-lg">Sign In</Button>
+              <Button className="rounded-full px-6 shadow-soft hover:shadow-soft-lg transition-all duration-300">
+                Sign In
+              </Button>
             </SignInButton>
           </SignedOut>
         </div>
       </nav>
+
+      {/* Mobile menu dropdown */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-background py-4 px-6">
-          <div className="flex flex-col gap-4 items-center w-full">
+        <div className="md:hidden bg-background/95 backdrop-blur-xl py-4 px-6 border-t border-border/50 animate-fade-in-up">
+          <div className="flex flex-col gap-3 items-center w-full">
             <SignedIn>
               <Button
                 variant="ghost"
-                className="hover:bg-transparent/20 justify-center w-full"
+                className="w-full justify-center rounded-full hover:bg-accent/50 py-6"
                 onClick={() => {
                   clerk.signOut();
                   toggleMobileMenu();
                 }}
               >
-                <LogOutIcon className="mr-2" />
+                <LogOutIcon className="mr-2 h-4 w-4" />
                 Sign Out
               </Button>
             </SignedIn>
             <SignedOut>
               <SignInButton mode="modal">
-                <Button className="w-full justify-center">Sign In</Button>
+                <Button className="w-full justify-center rounded-full py-6 shadow-soft">
+                  Sign In
+                </Button>
               </SignInButton>
             </SignedOut>
           </div>
