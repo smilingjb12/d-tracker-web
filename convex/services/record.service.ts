@@ -3,7 +3,7 @@ import { ConvexConstants } from "../lib/constants";
 
 export const RecordService = {
   async getStats(ctx: QueryCtx) {
-    const dailyStepsData = await getLast5DaysStepsData(ctx);
+    const dailyStepsData = await getLast7DaysStepsData(ctx);
     const last5Records = await ctx.db.query("records").order("desc").take(5);
     const updateIntervalInMinutes = getTimeDifferenceInMinutes(
       last5Records.map((record) => record._creationTime)
@@ -69,26 +69,22 @@ export const RecordService = {
   },
 };
 
-async function getLast5DaysStepsData(ctx: QueryCtx) {
+function formatDateUTC(timestamp: number): string {
+  return new Date(timestamp).toISOString().split("T")[0];
+}
+
+async function getLast7DaysStepsData(ctx: QueryCtx) {
   const now = Date.now();
-  const startTime = now - 5 * 24 * 60 * 60 * 1000;
+  const startTime = now - 7 * 24 * 60 * 60 * 1000;
   const records = await ctx.db
     .query("records")
-    .withIndex("by_creation_time", (q) => q.gte("_creationTime", startTime))
+    .filter((q) => q.gte(q.field("_creationTime"), startTime))
     .collect();
 
   const recordsByDay = new Map<string, { date: string; steps: number }>();
 
   records.forEach((record) => {
-    // Use Brussels timezone
-    const date = new Date(record._creationTime)
-      .toLocaleString("en-CA", {
-        timeZone: "Europe/Brussels",
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-      })
-      .split(",")[0]; // YYYY-MM-DD format
+    const date = formatDateUTC(record._creationTime);
     const existing = recordsByDay.get(date);
     const currentSteps = record.steps ?? 0;
 
@@ -101,19 +97,11 @@ async function getLast5DaysStepsData(ctx: QueryCtx) {
     }
   });
 
-  // Generate all 5 days (today and 4 previous days) to ensure chart always shows 5 days
+  // Generate all 7 days (today and 6 previous days) to ensure chart always shows 7 days
   const result: Array<{ date: string; steps: number }> = [];
-  for (let i = 4; i >= 0; i--) {
+  for (let i = 6; i >= 0; i--) {
     const dayTimestamp = now - i * 24 * 60 * 60 * 1000;
-    const dateStr = new Date(dayTimestamp)
-      .toLocaleString("en-CA", {
-        timeZone: "Europe/Brussels",
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-      })
-      .split(",")[0];
-
+    const dateStr = formatDateUTC(dayTimestamp);
     const existingData = recordsByDay.get(dateStr);
     result.push({
       date: dateStr,

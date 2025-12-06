@@ -17,18 +17,16 @@ export function DailyStepsChart({ data, className }: DailyStepsChartProps) {
   const maxStepsInData = Math.max(...data.map((d) => d.steps));
   const MAX_STEPS = Math.max(GOAL * 1.5, Math.ceil(maxStepsInData / 1000) * 1000);
 
-  const getDayName = (dateString: string) => {
-    const date = new Date(dateString);
-    const today = new Date();
-    const yesterday = new Date(today);
-    yesterday.setDate(yesterday.getDate() - 1);
-
-    if (date.toDateString() === today.toDateString()) {
+  const getDayName = (dateString: string, index: number, total: number) => {
+    // Last item is today, second to last is yesterday
+    if (index === total - 1) {
       return "Today";
     }
-    if (date.toDateString() === yesterday.toDateString()) {
+    if (index === total - 2) {
       return "Yesterday";
     }
+    // Parse date and get weekday
+    const date = new Date(dateString + "T12:00:00");
     return date.toLocaleDateString(undefined, { weekday: "short" });
   };
 
@@ -56,7 +54,7 @@ export function DailyStepsChart({ data, className }: DailyStepsChartProps) {
       </div>
 
       {/* Chart */}
-      <div className="flex items-end justify-between h-[160px] gap-2 px-1">
+      <div className="flex items-end justify-between gap-2 px-1" style={{ height: "160px" }}>
         {data.map((day, index) => {
           const percentage = (day.steps / MAX_STEPS) * 100;
           const height = Math.max(percentage, 3);
@@ -65,10 +63,11 @@ export function DailyStepsChart({ data, className }: DailyStepsChartProps) {
           return (
             <div
               key={day.date}
-              className="flex-1 flex flex-col items-center gap-2 group"
+              className="flex-1 flex flex-col items-center group"
+              style={{ height: "100%" }}
             >
               {/* Bar container */}
-              <div className="relative w-full h-full flex items-end justify-center">
+              <div className="relative w-full flex-1 flex items-end justify-center">
                 <motion.div
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: `${height}%`, opacity: 1 }}
@@ -112,13 +111,13 @@ export function DailyStepsChart({ data, className }: DailyStepsChartProps) {
                 animate={{ opacity: 1 }}
                 transition={{ delay: index * 0.1 + 0.3, duration: 0.3 }}
                 className={cn(
-                  "text-xs font-medium transition-colors",
-                  getDayName(day.date) === "Today"
+                  "text-xs font-medium transition-colors mt-2",
+                  index === data.length - 1
                     ? "text-primary"
                     : "text-muted-foreground"
                 )}
               >
-                {getDayName(day.date)}
+                {getDayName(day.date, index, data.length)}
               </motion.span>
             </div>
           );

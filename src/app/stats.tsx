@@ -74,7 +74,7 @@ export function Stats() {
             <StepsBar steps={stats.dailySteps} />
           )}
 
-          {stats.dailyStepsData && (
+          {stats.dailyStepsData && stats.dailyStepsData.length > 0 && (
             <DailyStepsChart data={stats.dailyStepsData} />
           )}
         </div>
