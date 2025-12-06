@@ -16,7 +16,7 @@ export const useConfirm = (
   title: string,
   message: string,
   confirmVariant: "default" | "destructive" = "default"
-): [() => JSX.Element, () => Promise<unknown>] => {
+): [() => React.JSX.Element, () => Promise<unknown>] => {
   const [promise, setPromise] = useState<{
     resolve: (value: boolean) => void;
   } | null>(null);
