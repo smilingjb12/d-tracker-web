@@ -2,10 +2,23 @@ import ScrollToTop from "@/components/scroll-to-top";
 import { Toaster } from "@/components/ui/toaster";
 import { Constants } from "@/constants";
 import type { Metadata } from "next";
+import { DM_Sans, Fraunces } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
 import { Header } from "./header";
 import { Providers } from "./providers";
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  variable: "--font-dm-sans",
+  display: "swap",
+});
+
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-fraunces",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: Constants.APP_NAME,
@@ -19,7 +32,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="font-body antialiased" suppressHydrationWarning>
+      <body
+        className={`${dmSans.variable} ${fraunces.variable} font-body antialiased`}
+        suppressHydrationWarning
+      >
         <Providers>
           <NextTopLoader
             showSpinner={false}
