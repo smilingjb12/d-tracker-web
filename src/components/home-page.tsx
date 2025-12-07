@@ -20,7 +20,11 @@ export function HomePage() {
   const roles = useQuery(api.users.getRoles);
   const { isAuthenticated, isLoading } = useConvexAuth();
 
-  if (!isAuthenticated && !isLoading) {
+  if (isLoading) {
+    return null;
+  }
+
+  if (!isAuthenticated) {
     return (
       <div className="flex justify-center items-center min-h-screen organic-bg">
         {/* Decorative background blobs */}
@@ -145,7 +149,10 @@ export function HomePage() {
             return (
               <button
                 key={item.id}
-                onClick={() => setActivePage(item.id)}
+                onClick={() => {
+                  setActivePage(item.id);
+                  window.scrollTo({ top: 0 });
+                }}
                 className={`
                   relative flex items-center gap-2 px-5 py-3 rounded-full transition-all duration-300
                   ${

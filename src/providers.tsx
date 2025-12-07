@@ -1,9 +1,10 @@
 import { ThemeProvider } from "@/components/theme-provider";
 import { clientEnv } from "@/env";
-import { ClerkProvider, useAuth } from "@clerk/clerk-react";
+import { ClerkLoaded, ClerkLoading, ClerkProvider, useAuth } from "@clerk/clerk-react";
 import { dark } from "@clerk/themes";
 import { ConvexReactClient } from "convex/react";
 import { ConvexProviderWithClerk } from "convex/react-clerk";
+import LoadingIndicator from "./components/loading-indicator";
 
 const convex = new ConvexReactClient(clientEnv.VITE_CONVEX_URL);
 
@@ -13,7 +14,14 @@ const ThemedClerkProvider = ({ children }: { children: React.ReactNode }) => {
       appearance={{ baseTheme: dark }}
       publishableKey={clientEnv.VITE_CLERK_PUBLISHABLE_KEY}
     >
-      {children}
+      <ClerkLoading>
+        <div className="min-h-screen flex items-center justify-center">
+          <LoadingIndicator />
+        </div>
+      </ClerkLoading>
+      <ClerkLoaded>
+        {children}
+      </ClerkLoaded>
     </ClerkProvider>
   );
 };
