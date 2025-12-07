@@ -63,7 +63,7 @@ export function DailyStepsChart({ data, className }: DailyStepsChartProps) {
           return (
             <div
               key={day.date}
-              className="flex-1 flex flex-col items-center group"
+              className="flex-1 basis-0 min-w-0 flex flex-col items-center group"
               style={{ height: "100%" }}
             >
               {/* Bar container */}
