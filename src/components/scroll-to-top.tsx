@@ -1,13 +1,14 @@
-"use client";
-
-import { usePathname } from "next/navigation";
+import { useRouterState } from "@tanstack/react-router";
 import { useEffect } from "react";
 
-export default function ScrollToTop() {
-  const pathname = usePathname();
+export function ScrollToTop() {
+  const location = useRouterState({ select: (s) => s.location });
+
   useEffect(() => {
     window.scroll(0, 0);
-  }, [pathname]);
+  }, [location.pathname]);
 
-  return <></>;
+  return null;
 }
+
+export default ScrollToTop;

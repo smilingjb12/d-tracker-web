@@ -1,5 +1,3 @@
-"use client";
-
 import { GeocodingProvider } from "@/lib/geocoding/types";
 import { useQuery } from "convex/react";
 import { useEffect, useState } from "react";

@@ -1,13 +1,17 @@
-"use client";
-
 import LoadingIndicator from "@/components/loading-indicator";
 import { Button } from "@/components/ui/button";
 import { StepsBar } from "@/components/steps-bar";
 import { usePaginatedQuery, useQuery } from "convex/react";
-import Link from "next/link";
 import { api } from "../../convex/_generated/api";
 import { motion } from "framer-motion";
-import { Battery, ExternalLink, Footprints, MapPin, Calendar, ChevronDown } from "lucide-react";
+import {
+  Battery,
+  ExternalLink,
+  Footprints,
+  MapPin,
+  Calendar,
+  ChevronDown,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type Coords = { lat: number; long: number };
@@ -102,8 +106,9 @@ export function LogsTable() {
           >
             {/* Top row: Location and time */}
             <div className="flex items-start justify-between gap-4 mb-3">
-              <Link
+              <a
                 target="_blank"
+                rel="noopener noreferrer"
                 href={`https://www.google.com/maps?q=${r.latitude},${r.longitude}`}
                 className="flex items-center gap-2 text-primary hover:text-primary/80 transition-colors group"
               >
@@ -111,8 +116,11 @@ export function LogsTable() {
                 <span className="font-medium group-hover:underline">
                   {getCoordiantesDisplay(r.latitude, r.longitude)}
                 </span>
-                <ExternalLink size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
-              </Link>
+                <ExternalLink
+                  size={12}
+                  className="opacity-0 group-hover:opacity-100 transition-opacity"
+                />
+              </a>
               <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
                 <Calendar size={14} />
                 <span>{formatToDateTime(r._creationTime)}</span>

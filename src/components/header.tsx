@@ -1,5 +1,3 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
 import { Constants } from "@/constants";
 import {
@@ -8,9 +6,9 @@ import {
   SignInButton,
   useClerk,
   useUser,
-} from "@clerk/nextjs";
+} from "@clerk/clerk-react";
 import { LogOutIcon, Menu, X } from "lucide-react";
-import Link from "next/link";
+import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { AvatarDropdown } from "./avatar-dropdown";
 
@@ -29,7 +27,7 @@ export function Header() {
       <nav className="container flex h-16 w-full items-center justify-between px-4 md:px-6">
         <div className="flex items-center gap-12">
           <Link
-            href="/"
+            to="/"
             className="flex items-center gap-3 group transition-all duration-300"
           >
             {/* Custom organic logo mark */}
@@ -56,7 +54,10 @@ export function Header() {
                 </svg>
               </div>
               {/* Subtle pulse ring */}
-              <div className="absolute inset-0 rounded-full bg-primary/20 animate-ping opacity-0 group-hover:opacity-100" style={{ animationDuration: '2s' }} />
+              <div
+                className="absolute inset-0 rounded-full bg-primary/20 animate-ping opacity-0 group-hover:opacity-100"
+                style={{ animationDuration: "2s" }}
+              />
             </div>
             <span className="font-display text-lg font-medium tracking-tight text-foreground group-hover:text-primary transition-colors duration-300">
               {Constants.APP_NAME}

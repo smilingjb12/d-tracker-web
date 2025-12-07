@@ -3,7 +3,13 @@ import LoadingIndicator from "@/components/loading-indicator";
 import { StepsBar } from "@/components/steps-bar";
 import { useQuery } from "convex/react";
 import { formatDistance } from "date-fns";
-import { Clock, Footprints, MessageCircle, RefreshCw, User } from "lucide-react";
+import {
+  Clock,
+  Footprints,
+  MessageCircle,
+  RefreshCw,
+  User,
+} from "lucide-react";
 import { api } from "../../convex/_generated/api";
 
 export function Stats() {
@@ -33,7 +39,9 @@ export function Stats() {
               <Clock size={22} strokeWidth={1.5} />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-muted-foreground mb-1">Last Updated</p>
+              <p className="text-sm font-medium text-muted-foreground mb-1">
+                Last Updated
+              </p>
               <p className="text-xl font-display font-medium text-foreground truncate">
                 {getLastUpdatedString(stats.lastUpdatedAt)}
               </p>
@@ -48,7 +56,9 @@ export function Stats() {
               <RefreshCw size={22} strokeWidth={1.5} />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-muted-foreground mb-1">Update Interval</p>
+              <p className="text-sm font-medium text-muted-foreground mb-1">
+                Update Interval
+              </p>
               <p className="text-xl font-display font-medium text-foreground">
                 {Math.floor(stats.updateIntervalInMinutes)} minutes
               </p>
@@ -64,8 +74,12 @@ export function Stats() {
             <Footprints size={22} strokeWidth={1.5} />
           </div>
           <div>
-            <h3 className="font-display text-lg font-medium text-foreground">Daily Steps</h3>
-            <p className="text-sm text-muted-foreground">Keep moving, you&apos;re doing great</p>
+            <h3 className="font-display text-lg font-medium text-foreground">
+              Daily Steps
+            </h3>
+            <p className="text-sm text-muted-foreground">
+              Keep moving, you&apos;re doing great
+            </p>
           </div>
         </div>
 
@@ -88,12 +102,14 @@ export function Stats() {
               <User size={22} strokeWidth={1.5} />
             </div>
             <div className="flex-1">
-              <p className="text-sm font-medium text-muted-foreground mb-2">Emergency Contact</p>
+              <p className="text-sm font-medium text-muted-foreground mb-2">
+                Emergency Contact
+              </p>
               <p className="text-lg font-medium text-foreground mb-1">
                 {stats.landlord.name}
               </p>
               <a
-                href={`https://wa.me/${stats.landlord.phone?.replace(/[^0-9]/g, '')}`}
+                href={`https://wa.me/${stats.landlord.phone?.replace(/[^0-9]/g, "")}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors"

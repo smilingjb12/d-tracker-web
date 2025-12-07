@@ -5,7 +5,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useClerk } from "@clerk/nextjs";
+import { useClerk } from "@clerk/clerk-react";
 import { LogOut } from "lucide-react";
 
 interface Props {

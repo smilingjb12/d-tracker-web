@@ -1,5 +1,3 @@
-"use client";
-
 import { LogsTable } from "../logs-table";
 import { motion } from "framer-motion";
 

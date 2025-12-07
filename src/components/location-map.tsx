@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useEffect, useRef } from "react";
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
@@ -37,7 +35,9 @@ const createCustomIcon = (opacity: number, isLatest: boolean = false) => {
           fill="white"
           fill-opacity="${opacity * 0.9}"
         />
-        ${isLatest ? `
+        ${
+          isLatest
+            ? `
           <circle
             cx="${size / 2}"
             cy="${size / 2}"
@@ -47,7 +47,9 @@ const createCustomIcon = (opacity: number, isLatest: boolean = false) => {
             stroke-width="2"
             stroke-opacity="0.5"
           />
-        ` : ''}
+        `
+            : ""
+        }
       </svg>
     `),
     iconSize: [size, size * 1.5],
@@ -57,7 +59,7 @@ const createCustomIcon = (opacity: number, isLatest: boolean = false) => {
 };
 
 const icons = [
-  createCustomIcon(1, true),    // Latest - full opacity, larger
+  createCustomIcon(1, true), // Latest - full opacity, larger
   createCustomIcon(0.7),
   createCustomIcon(0.5),
   createCustomIcon(0.35),
@@ -88,18 +90,21 @@ export default function LocationMap() {
     mapRef.current = map;
 
     // Add zoom control to bottom right for better mobile UX
-    L.control.zoom({ position: 'bottomright' }).addTo(map);
+    L.control.zoom({ position: "bottomright" }).addTo(map);
 
     // Use a warm, muted tile style
-    L.tileLayer("https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png", {
-      attribution: "",
-      maxZoom: 20,
-    }).addTo(map);
+    L.tileLayer(
+      "https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png",
+      {
+        attribution: "",
+        maxZoom: 20,
+      }
+    ).addTo(map);
 
     // Add markers with decreasing opacity for history
     points.forEach((point, i) => {
       const marker = L.marker(point, {
-        icon: icons[Math.min(i, icons.length - 1)]
+        icon: icons[Math.min(i, icons.length - 1)],
       }).addTo(map);
 
       // Add popup for the latest marker
@@ -110,7 +115,7 @@ export default function LocationMap() {
           </div>`,
           {
             closeButton: false,
-            className: 'organic-popup'
+            className: "organic-popup",
           }
         );
       }
@@ -119,12 +124,12 @@ export default function LocationMap() {
     // Draw a subtle path connecting the points
     if (points.length > 1) {
       L.polyline(points, {
-        color: '#5b8a72',
+        color: "#5b8a72",
         weight: 2,
         opacity: 0.3,
-        dashArray: '8, 8',
-        lineCap: 'round',
-        lineJoin: 'round'
+        dashArray: "8, 8",
+        lineCap: "round",
+        lineJoin: "round",
       }).addTo(map);
     }
 
@@ -148,7 +153,7 @@ export default function LocationMap() {
     <div
       ref={mapContainerRef}
       className="h-[400px] w-full rounded-2xl"
-      style={{ background: 'hsl(var(--muted))' }}
+      style={{ background: "hsl(var(--muted))" }}
     />
   );
 }

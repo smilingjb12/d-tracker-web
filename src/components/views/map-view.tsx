@@ -1,20 +1,10 @@
-"use client";
-
 import { GeocodedLocation } from "@/components/geocoded-location";
 import LoadingIndicator from "@/components/loading-indicator";
-import dynamic from "next/dynamic";
-import { Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { MapPin } from "lucide-react";
 
-const LocationMap = dynamic(() => import("../location-map"), {
-  ssr: false,
-  loading: () => (
-    <div className="h-[400px] rounded-2xl bg-muted/30 flex items-center justify-center">
-      <LoadingIndicator />
-    </div>
-  ),
-});
+const LocationMap = lazy(() => import("../location-map"));
 
 export default function MapView() {
   const [isVisible, setIsVisible] = useState(false);
@@ -39,7 +29,9 @@ export default function MapView() {
               <MapPin size={22} strokeWidth={1.5} />
             </div>
             <div className="flex-1">
-              <p className="text-sm font-medium text-muted-foreground mb-1">Current Location</p>
+              <p className="text-sm font-medium text-muted-foreground mb-1">
+                Current Location
+              </p>
               <div className="text-lg font-medium text-foreground">
                 <GeocodedLocation />
               </div>

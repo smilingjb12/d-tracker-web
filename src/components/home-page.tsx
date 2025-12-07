@@ -1,15 +1,13 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
-import { SignInButton } from "@clerk/nextjs";
+import { SignInButton } from "@clerk/clerk-react";
 import { useConvexAuth, useQuery } from "convex/react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Home, MapPin, ScrollText } from "lucide-react";
 import { useState } from "react";
 import { api } from "../../convex/_generated/api";
-import DashboardView from "./components/dashboard-view";
-import LogsView from "./components/logs-view";
-import MapView from "./components/map-view";
+import DashboardView from "./views/dashboard-view";
+import LogsView from "./views/logs-view";
+import MapView from "./views/map-view";
 
 const navItems = [
   { id: "dashboard", label: "Home", icon: Home },
@@ -17,7 +15,7 @@ const navItems = [
   { id: "logs", label: "History", icon: ScrollText },
 ];
 
-export default function HomePage() {
+export function HomePage() {
   const [activePage, setActivePage] = useState("dashboard");
   const roles = useQuery(api.users.getRoles);
   const { isAuthenticated, isLoading } = useConvexAuth();
@@ -28,7 +26,10 @@ export default function HomePage() {
         {/* Decorative background blobs */}
         <div className="fixed inset-0 overflow-hidden pointer-events-none">
           <div className="absolute -top-40 -right-40 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-breathe" />
-          <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-warm/10 rounded-full blur-3xl animate-breathe" style={{ animationDelay: '2s' }} />
+          <div
+            className="absolute -bottom-40 -left-40 w-96 h-96 bg-warm/10 rounded-full blur-3xl animate-breathe"
+            style={{ animationDelay: "2s" }}
+          />
         </div>
 
         <motion.div
@@ -147,9 +148,10 @@ export default function HomePage() {
                 onClick={() => setActivePage(item.id)}
                 className={`
                   relative flex items-center gap-2 px-5 py-3 rounded-full transition-all duration-300
-                  ${isActive
-                    ? "bg-primary text-primary-foreground shadow-soft"
-                    : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
+                  ${
+                    isActive
+                      ? "bg-primary text-primary-foreground shadow-soft"
+                      : "text-muted-foreground hover:text-foreground hover:bg-accent/50"
                   }
                 `}
               >

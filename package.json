@@ -2,17 +2,18 @@
   "name": "d-tracker",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
     "lint": "eslint src/ convex/",
     "stripe:listen": "stripe listen --forward-to https://combative-barracuda-101.convex.site/stripe",
     "stripe:trigger": "stripe trigger payment_intent.succeeded"
   },
   "dependencies": {
+    "@clerk/clerk-react": "^5.58.0",
     "@clerk/clerk-sdk-node": "^4.13.23",
-    "@clerk/nextjs": "^6.36.0",
     "@clerk/themes": "^2.4.42",
     "@convex-dev/resend": "^0.2.1",
     "@hookform/resolvers": "^3.9.0",
@@ -25,6 +26,8 @@
     "@radix-ui/react-toast": "^1.2.1",
     "@radix-ui/react-tooltip": "^1.1.2",
     "@tailwindcss/postcss": "^4.1.17",
+    "@tanstack/react-router": "^1.139.16",
+    "@tanstack/react-start": "^1.139.14",
     "autoprefixer": "^10.4.22",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
@@ -35,9 +38,7 @@
     "leaflet": "^1.9.4",
     "lodash": "^4.17.21",
     "lucide-react": "^0.446.0",
-    "next": "^16.0.7",
     "next-themes": "^0.4.6",
-    "nextjs-toploader": "^3.7.15",
     "react": "^19.2.1",
     "react-dom": "^19.2.1",
     "react-dropzone": "^14.2.3",
@@ -58,10 +59,12 @@
     "@types/node": "^20",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.1",
     "eslint": "^9.39.1",
-    "eslint-config-next": "^16.0.7",
     "postcss": "^8",
     "tailwindcss": "^4.1.17",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vite": "^7.2.6",
+    "vite-tsconfig-paths": "^5.1.4"
   }
 }
