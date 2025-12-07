@@ -45,29 +45,25 @@ export function DailyStepsChart({ data, className }: DailyStepsChartProps) {
 
   return (
     <div className={cn("w-full pt-8", className)}>
-      {/* Goal line indicator */}
-      <div className="relative mb-2">
+      {/* Chart bars area */}
+      <div className="relative px-1" style={{ height: "160px" }}>
+        {/* Goal line indicator */}
         <div
-          className="absolute left-0 right-0 border-t-2 border-dashed border-primary/30"
+          className="absolute left-0 right-0 border-t-2 border-dashed border-primary/30 z-0 pointer-events-none"
           style={{ bottom: `${(GOAL / MAX_STEPS) * 100}%` }}
         />
-      </div>
+        {/* Bars */}
+        <div className="flex items-end justify-between gap-2 h-full">
+          {data.map((day, index) => {
+            const percentage = (day.steps / MAX_STEPS) * 100;
+            const height = Math.max(percentage, 3);
+            const isGoalReached = day.steps >= GOAL;
 
-      {/* Chart */}
-      <div className="flex items-end justify-between gap-2 px-1" style={{ height: "160px" }}>
-        {data.map((day, index) => {
-          const percentage = (day.steps / MAX_STEPS) * 100;
-          const height = Math.max(percentage, 3);
-          const isGoalReached = day.steps >= GOAL;
-
-          return (
-            <div
-              key={day.date}
-              className="flex-1 basis-0 min-w-0 flex flex-col items-center group"
-              style={{ height: "100%" }}
-            >
-              {/* Bar container */}
-              <div className="relative w-full flex-1 flex items-end justify-center">
+            return (
+              <div
+                key={day.date}
+                className="flex-1 basis-0 min-w-0 flex items-end justify-center group h-full"
+              >
                 <motion.div
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: `${height}%`, opacity: 1 }}
@@ -104,24 +100,29 @@ export function DailyStepsChart({ data, className }: DailyStepsChartProps) {
                   )}
                 </motion.div>
               </div>
+            );
+          })}
+        </div>
+      </div>
 
-              {/* Day label */}
-              <motion.span
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: index * 0.1 + 0.3, duration: 0.3 }}
-                className={cn(
-                  "text-xs font-medium transition-colors mt-2",
-                  index === data.length - 1
-                    ? "text-primary"
-                    : "text-muted-foreground"
-                )}
-              >
-                {getDayName(day.date, index, data.length)}
-              </motion.span>
-            </div>
-          );
-        })}
+      {/* Day labels */}
+      <div className="flex justify-between gap-2 px-1 mt-2">
+        {data.map((day, index) => (
+          <motion.span
+            key={day.date}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: index * 0.1 + 0.3, duration: 0.3 }}
+            className={cn(
+              "flex-1 basis-0 min-w-0 text-center text-xs font-medium transition-colors",
+              index === data.length - 1
+                ? "text-primary"
+                : "text-muted-foreground"
+            )}
+          >
+            {getDayName(day.date, index, data.length)}
+          </motion.span>
+        ))}
       </div>
 
       {/* Legend */}
