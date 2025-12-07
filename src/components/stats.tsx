@@ -30,43 +30,6 @@ export function Stats() {
 
   return (
     <div className="space-y-8">
-      {/* Top stats row */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {/* Last Updated Card */}
-        <div className="group p-5 rounded-2xl bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/10 hover:border-primary/20 transition-all duration-300">
-          <div className="flex items-start gap-4">
-            <div className="p-3 rounded-xl bg-primary/10 text-primary">
-              <Clock size={22} strokeWidth={1.5} />
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-muted-foreground mb-1">
-                Last Updated
-              </p>
-              <p className="text-xl font-display font-medium text-foreground truncate">
-                {getLastUpdatedString(stats.lastUpdatedAt)}
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Update Interval Card */}
-        <div className="group p-5 rounded-2xl bg-gradient-to-br from-warm/5 to-warm/10 border border-warm/10 hover:border-warm/20 transition-all duration-300">
-          <div className="flex items-start gap-4">
-            <div className="p-3 rounded-xl bg-warm/10 text-warm">
-              <RefreshCw size={22} strokeWidth={1.5} />
-            </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-muted-foreground mb-1">
-                Update Interval
-              </p>
-              <p className="text-xl font-display font-medium text-foreground">
-                {Math.floor(stats.updateIntervalInMinutes)} minutes
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Daily Steps Section - Featured */}
       <div className="p-6 rounded-2xl bg-gradient-to-br from-accent/30 to-accent/10 border border-accent/20">
         <div className="flex items-center gap-3 mb-5">
@@ -94,7 +57,44 @@ export function Stats() {
         </div>
       </div>
 
-      {/* Contacts Section */}
+      {/* Stats row */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {/* Last Updated Card */}
+        <div className="group p-5 rounded-2xl bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/10 hover:border-primary/20 transition-all duration-300">
+          <div className="flex items-start gap-4">
+            <div className="p-3 rounded-xl bg-primary/10 text-primary">
+              <Clock size={22} strokeWidth={1.5} />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-muted-foreground mb-1">
+                Last Updated
+              </p>
+              <p className="text-xl font-numeric font-medium text-foreground truncate">
+                {getLastUpdatedString(stats.lastUpdatedAt)}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Update Interval Card */}
+        <div className="group p-5 rounded-2xl bg-gradient-to-br from-warm/5 to-warm/10 border border-warm/10 hover:border-warm/20 transition-all duration-300">
+          <div className="flex items-start gap-4">
+            <div className="p-3 rounded-xl bg-warm/10 text-warm">
+              <RefreshCw size={22} strokeWidth={1.5} />
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-muted-foreground mb-1">
+                Update Interval
+              </p>
+              <p className="text-xl font-numeric font-medium text-foreground">
+                {Math.floor(stats.updateIntervalInMinutes)} minutes
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Emergency Contact Section */}
       {stats.landlord && (
         <div className="p-5 rounded-2xl bg-secondary/50 border border-border/50">
           <div className="flex items-start gap-4">

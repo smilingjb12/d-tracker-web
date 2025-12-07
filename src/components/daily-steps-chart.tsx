@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { Constants } from "@/constants";
+import { Star } from "lucide-react";
 
 type DailyStepsChartProps = {
   data: Array<{
@@ -56,8 +57,22 @@ export function DailyStepsChart({ data, className }: DailyStepsChartProps) {
             return (
               <div
                 key={day.date}
-                className="flex-1 basis-0 min-w-0 flex items-end justify-center group h-full"
+                className="flex-1 basis-0 min-w-0 flex flex-col items-center justify-end group h-full"
               >
+                {/* Step count label above bar */}
+                <motion.span
+                  initial={{ opacity: 0, y: 5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 + 0.4, duration: 0.3 }}
+                  className={cn(
+                    "text-[11px] font-numeric font-medium mb-1",
+                    index === data.length - 1
+                      ? "text-primary"
+                      : "text-muted-foreground"
+                  )}
+                >
+                  {day.steps.toLocaleString()}
+                </motion.span>
                 <motion.div
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: `${height}%`, opacity: 1 }}
@@ -75,7 +90,7 @@ export function DailyStepsChart({ data, className }: DailyStepsChartProps) {
                   {/* Tooltip on hover */}
                   <div className="absolute -top-14 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-10">
                     <div className="bg-card px-3 py-1.5 rounded-lg shadow-soft-lg border border-border/50 whitespace-nowrap">
-                      <span className="text-sm font-medium text-foreground">
+                      <span className="text-sm font-numeric font-medium text-foreground">
                         {day.steps.toLocaleString()}
                       </span>
                       <span className="text-xs text-muted-foreground ml-1">steps</span>
@@ -89,8 +104,10 @@ export function DailyStepsChart({ data, className }: DailyStepsChartProps) {
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
                       transition={{ delay: index * 0.1 + 0.5, duration: 0.3 }}
-                      className="absolute top-2 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-white/80"
-                    />
+                      className="absolute top-2 left-1/2 -translate-x-1/2"
+                    >
+                      <Star size={12} className="fill-white/90 text-white/90" />
+                    </motion.div>
                   )}
                 </motion.div>
               </div>

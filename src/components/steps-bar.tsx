@@ -34,7 +34,7 @@ export function StepsBar({ steps, showBar = true }: StepsBarProps) {
       <div className="flex items-end justify-between">
         <div className="flex items-baseline gap-2">
           <span className={cn(
-            "text-4xl font-display font-semibold tracking-tight",
+            "text-4xl font-numeric font-semibold tracking-tight",
             isGoalReached ? "text-primary" : "text-foreground"
           )}>
             {formatNumber(steps)}
@@ -43,7 +43,7 @@ export function StepsBar({ steps, showBar = true }: StepsBarProps) {
         </div>
         <div className="flex items-center gap-1.5 text-muted-foreground text-sm">
           <Target size={14} />
-          <span>{formatNumber(MAX_STEPS)} goal</span>
+          <span className="font-numeric">{formatNumber(MAX_STEPS)} goal</span>
         </div>
       </div>
 

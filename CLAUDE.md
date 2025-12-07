@@ -1,6 +1,6 @@
 # D-Tracker Web
 
-A step tracking application built with TanStack Start and Convex.
+A mobile-first activity tracking application built with TanStack Start and Convex.
 
 ## Tech Stack
 

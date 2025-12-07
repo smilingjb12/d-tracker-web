@@ -50,6 +50,7 @@
   /* Custom font families - using Google Fonts */
   --font-display: 'Fraunces', Georgia, serif;
   --font-body: 'DM Sans', system-ui, sans-serif;
+  --font-numeric: 'Source Serif 4', Georgia, serif;
 }
 
 @utility container {
@@ -108,6 +109,11 @@
 
 @utility font-body {
   font-family: var(--font-body);
+}
+
+@utility font-numeric {
+  font-family: var(--font-numeric);
+  font-optical-sizing: auto;
 }
 
 @layer base {
