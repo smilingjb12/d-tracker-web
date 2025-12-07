@@ -18,14 +18,10 @@ export function DailyStepsChart({ data, className }: DailyStepsChartProps) {
   const MAX_STEPS = Math.max(GOAL * 1.5, Math.ceil(maxStepsInData / 1000) * 1000);
 
   const getDayName = (dateString: string, index: number, total: number) => {
-    // Last item is today, second to last is yesterday
     if (index === total - 1) {
       return "Today";
     }
-    if (index === total - 2) {
-      return "Yesterday";
-    }
-    // Parse date and get weekday
+    // Parse date and get short weekday name
     const date = new Date(dateString + "T12:00:00");
     return date.toLocaleDateString(undefined, { weekday: "short" });
   };
