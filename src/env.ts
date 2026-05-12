@@ -10,11 +10,12 @@ export const clientEnv = {
 };
 
 // Validate required environment variables
-if (typeof window !== "undefined") {
-  if (!clientEnv.VITE_CONVEX_URL) {
-    throw new Error("VITE_CONVEX_URL is required");
-  }
-  if (!clientEnv.VITE_CLERK_PUBLISHABLE_KEY) {
-    throw new Error("VITE_CLERK_PUBLISHABLE_KEY is required");
-  }
+if (!clientEnv.VITE_CONVEX_URL) {
+  throw new Error("VITE_CONVEX_URL is required");
+}
+
+if (!clientEnv.VITE_CLERK_PUBLISHABLE_KEY) {
+  throw new Error(
+    "VITE_CLERK_PUBLISHABLE_KEY is required. Rename NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY to VITE_CLERK_PUBLISHABLE_KEY in your Vite env file.",
+  );
 }
